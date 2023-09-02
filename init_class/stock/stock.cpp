@@ -106,7 +106,6 @@ const Stock & Stock::top_value(Stock & stock) const
     {
         return *this;
     }
-    
 }
 
 Stock::~Stock()
