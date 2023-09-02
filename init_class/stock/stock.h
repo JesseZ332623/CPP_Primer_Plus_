@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class _Stock_
+class Stock
 {
     private:    
         std::string company;
@@ -14,8 +14,8 @@ class _Stock_
         void set_total() { total_val = shares * share_val; }
 
     public:
-        _Stock_();
-        _Stock_(const std::string company, long n = 0, double pr = 0.000);
+        Stock();
+        Stock(const std::string company, long n = 0, double pr = 0.000);
 
         void buy(long number, double price);
 
@@ -25,12 +25,12 @@ class _Stock_
 
         void show() const;
 
-        const _Stock_ & top_value(_Stock_ & stock) const;
+        const Stock & top_value(Stock & stock) const;
 
-        ~_Stock_();
+        ~Stock();
 };
 
-typedef _Stock_ Stock;
+
 
 #endif
 

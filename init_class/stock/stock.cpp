@@ -1,6 +1,6 @@
 #include "stock.h"
 
-Stock::_Stock_()
+Stock::Stock()
 {
     company = "No Name";
     shares = 0;
@@ -8,7 +8,7 @@ Stock::_Stock_()
     total_val = 0.00;
 }
 
-Stock::_Stock_(const std::string company, long n = 0, double pr = 0.000)
+Stock::Stock(const std::string company, long n, double pr)
 {
     this->company = company;
 
@@ -81,7 +81,9 @@ void Stock::show() const
         cout.setf(ios_base::fixed, ios_base::floatfield);
     std::streamsize prec = cout.precision(3);
 
-    cout << "Company: " << company;
+    cout << "---------------------------------------" << endl;
+
+    cout << "Company: " << company << ' ';
     cout << "Shares: " << shares << endl;
     cout << "Share price: $" << share_val << endl;
 
@@ -90,9 +92,11 @@ void Stock::show() const
 
     cout.setf(orig, ios_base::floatfield);
     cout.precision(prec);
+
+    cout << "---------------------------------------" << endl;
 }
 
-const _Stock_ & Stock::top_value(_Stock_ & stock) const
+const Stock & Stock::top_value(Stock & stock) const
 {
     if (stock.total_val > total_val)
     {
@@ -105,7 +109,7 @@ const _Stock_ & Stock::top_value(_Stock_ & stock) const
     
 }
 
-Stock::~_Stock_()
+Stock::~Stock()
 {
-    std::cout << "class [stock] deleted.....\n";
+    std::cout << "\033[31mclass [stock] deleted.....\033[0m\n";
 }
