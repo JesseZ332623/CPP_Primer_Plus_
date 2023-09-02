@@ -6,6 +6,9 @@ const int STOCKS = 4;
 
 int main(int argc, char const *argv[])
 {
+    Change_Color text_color;
+    cout << argc << ' ' << argv[0] << endl;
+
     Stock stocks[STOCKS] = 
     {
         Stock("Nano_Smart", 12, 20.0),
@@ -17,11 +20,13 @@ int main(int argc, char const *argv[])
     const Stock *top = stocks;
     int cl_index = 0;
 
+    text_color.text_color(BLUE);
     cout << "The stock array contence: " << endl;
     for (cl_index; cl_index < STOCKS; ++cl_index)
     {
         stocks[cl_index].show();
     }
+    text_color.text_color(WHITE);
 
     /*
         找出最大值 
@@ -35,9 +40,11 @@ int main(int argc, char const *argv[])
         top = &top->top_value(stocks[cl_index]);
     }
 
-    cout << "\033[32mThe most valuable holding:" << endl;
+    text_color.text_color(GREEN);
+    cout << "The most valuable holding:" << endl;
     top->show();
-    cout << "\033[0m";
+    text_color.text_color(WHITE);
+    
 #endif
     
     return EXIT_SUCCESS;

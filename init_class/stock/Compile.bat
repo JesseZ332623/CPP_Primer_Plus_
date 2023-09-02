@@ -1,0 +1,1 @@
+g++ src\*.cpp -IE:\CPP_Primire_Plus\init_class\stock\include -LE:\CPP_Primire_Plus\init_class\stock\lib -lchange_terminal_color -mwindows -o stock_main.exe

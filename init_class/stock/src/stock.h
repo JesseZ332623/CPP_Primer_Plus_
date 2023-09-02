@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+#include "change_terminal_color.h"
+
 class Stock
 {
     private:    
@@ -14,6 +16,7 @@ class Stock
         void set_total() { total_val = shares * share_val; }
 
     public:
+        Change_Color color_t;
         Stock();
         Stock(const std::string company, long n = 0, double pr = 0.000);
 
