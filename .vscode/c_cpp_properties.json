@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "E:/CPP_Primire_Plus/change_terminal_color/include/"
             ],
             "defines": [
                 "_DEBUG",
