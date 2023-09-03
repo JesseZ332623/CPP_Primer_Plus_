@@ -1,4 +1,4 @@
-#include "./stock.h"
+#include "include/stock.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
         Stock("Nano_Smart", 12, 20.0),
         Stock("Boffo_Objects", 200, 2.0),
         Stock("Momolithic_Obelisks", 130, 3.25),
-        Stock("Fleep_Enterprices", 60, 6.5)     
+        Stock("Fleep_Enterprices", 60, 6.5)      
     };
 
     const Stock *top = stocks;

@@ -1,6 +1,6 @@
-#include "./stock.h"
+#include "include/stock.h"
 
-
+Change_Color color_t;
 
 Stock::Stock()
 {
@@ -94,6 +94,9 @@ void Stock::show() const
     cout << "Shares: " << shares << endl;
     cout << "Share price: $" << share_val << endl;
 
+    /*
+        set format to $0.00
+    */
     cout.precision(2);
     cout << "Total worth: $" << total_val << endl;
 
@@ -116,6 +119,7 @@ const Stock &Stock::top_value(Stock &stock) const
 
 Stock::~Stock()
 {
-    //color_t.text_color(RED);
-    std::cout << "\033[31mclass [stock] deleted.....\033[0m\n";
+    color_t.text_color(RED);
+    std::cout << "class [stock] deleted.....\n";
+    color_t.text_color(WHITE);
 }
