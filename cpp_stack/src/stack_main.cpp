@@ -1,3 +1,4 @@
+#if false
 #include "include/stack.h"
 
 const Item stack_len = 10;
@@ -42,9 +43,12 @@ int main(int argc, char const *argv[])
     color_t.text_color(LIGHT_BLUE);
     std::cout << "stackdata_info: " << std::endl;
     stack->show_data();
+    cout.put('\n');
     color_t.text_color(WHITE);
 
     delete stack;
 
     return EXIT_SUCCESS;
 }
+
+#endif
