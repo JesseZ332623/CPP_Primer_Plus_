@@ -16,6 +16,7 @@ int main(int argc, char const *argv[])
     color_t.text_color(BLUE);
     cout << "Please enter [A] to add a purchase order,\n"
          << "[P] to process a PO,\n"
+         << "[S] to show stack data,\n"
          << "[Q] to Quit." << endl;
     color_t.text_color(LIGHT_BLUE);
     
@@ -64,13 +65,31 @@ int main(int argc, char const *argv[])
                     color_t.text_color(WHITE);
                 }
                 break;
+            
+            case 'S':
+            case 's':
+                if (stack_t.isempty())
+                {
+                    color_t.text_color(RED);
+                    cout << "stack already empty.\n";
+                    color_t.text_color(WHITE);
+                }
+                else
+                {
+                    color_t.text_color(GREEN);
+                    cout << "stack size: " << stack_t.show_stack_top() << endl;
+                    stack_t.show_data();
+                    cout.put('\n');
+                    color_t.text_color(WHITE);
+                }
         }
         color_t.text_color(BLUE);
         cout << "Please enter [A] to add a purchase order,\n"
          << "[P] to process a PO,\n"
+         << "[S] to show stack data,\n"
          << "[Q] to Quit." << endl; 
     }
-    color_t.text_color(BLUE);
+    color_t.text_color(GREEN);
 
     cout << "Have a good time! \n";
 
