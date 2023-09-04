@@ -24,7 +24,7 @@ class Customer_t
         double total_payment;
 
     public:
-        /*默认构建函数 随便初始化几个数据进去*/
+        /*默认构建函数 引导用户输入数据*/
         Customer_t(); 
 
         Customer_t(std::vector<std::string>::iterator full_name_iter, double *payment);
