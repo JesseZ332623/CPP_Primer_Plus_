@@ -1,7 +1,5 @@
 #include "customer.h"
 
-
-
 int main(int argc, char const *argv[])
 {
     std::vector<std::string> full_name_set = 
