@@ -1,7 +1,5 @@
 #include "customer.h"
 
-void set_digital(size_t digital);
-
 
 
 int main(int argc, char const *argv[])
@@ -17,7 +15,6 @@ int main(int argc, char const *argv[])
 
     customer_t.customer_push();
     customer_t.customer_pop();
-
     
     set_digital(2);
     std::cout.precision(2);
