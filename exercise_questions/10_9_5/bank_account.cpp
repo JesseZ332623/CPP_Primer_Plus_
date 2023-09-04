@@ -1,6 +1,7 @@
 #include "bank_account.h"
 
 /*初始化类私有数据*/
+/*10_9_7 构造函数答案*/
 Bank_Account::Bank_Account()
 {
     cout << "Init account data: " << endl;
