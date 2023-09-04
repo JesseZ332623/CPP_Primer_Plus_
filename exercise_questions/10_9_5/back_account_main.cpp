@@ -26,6 +26,7 @@ void user_menu()
 #if true
 int main(int argc, char const *argv[])
 {
+    system("cls");
     short user_choice = 0;
     double init_disposit = Init_Disposit;
     string user_name;
@@ -55,6 +56,7 @@ int main(int argc, char const *argv[])
         {
             case 1:
                 system("cls");
+                user_index = 0;
                 cout << "Enter your account name: ";
                 cin >> user_name;
 
@@ -65,6 +67,8 @@ int main(int argc, char const *argv[])
                         cout << "Enter your money you want to deposit: $";
                         cin >> user_money_deposit;
                         bank_account[user_index].deposit_money(user_money_deposit);
+                        cout << "OK" << endl;
+                        break;
                     }
                     else 
                     {
@@ -78,6 +82,7 @@ int main(int argc, char const *argv[])
                 break;
             case 2:
                 system("cls");
+                user_index = 0;
                 cout << "Enter your account name: ";
                 cin >> user_name;
 
@@ -103,7 +108,7 @@ int main(int argc, char const *argv[])
                         }
                         else 
                         {
-                            //bank_account[user_index].withdraw_money(user_money); 
+                            cout << "OK" << endl;
                             break; 
                         }
                     }
@@ -149,6 +154,8 @@ int main(int argc, char const *argv[])
             default:
                 cout << "Error choice: (" << user_choice << ')';
                 cout << " Please enter again...\n";
+                Sleep(1000);
+                system("cls");
                 break;
         }
         while (cin.get() != '\n')

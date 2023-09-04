@@ -30,7 +30,7 @@ bool Bank_Account::deposit_money(double & money)
         return false;
     }
 
-    this->disposit += money;
+    disposit += money;
 
     return true;
 }
@@ -47,7 +47,7 @@ int Bank_Account::withdraw_money(double & money)
         return OVER_DISPOSIT;
     }
 
-    this->disposit -= money;
+    disposit -= money;
 
     return true;
 }

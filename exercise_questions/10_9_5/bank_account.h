@@ -27,7 +27,7 @@ class Bank_Account
         bool deposit_money(double & money);
         
         /*取钱*/
-        double get_disposit() const { return this->disposit; }
+        const double get_disposit() const { return this->disposit; }
         int withdraw_money(double & money);
 
         /*展示数据*/
