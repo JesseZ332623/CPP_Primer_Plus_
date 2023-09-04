@@ -91,6 +91,11 @@ int main(int argc, char const *argv[])
 
                 for (const auto &tar : customer_name_set)
                 {
+                    using std::ios_base;
+
+                    ios_base::fmtflags orig = 
+                                    cout.setf(ios_base::fixed, ios_base::floatfield);
+                    std::streamsize prec = cout.precision(2);
                     if (tar == user_name)
                     {
                         cout << "Enter your money you want to withdraw: $";
