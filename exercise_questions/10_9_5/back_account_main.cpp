@@ -1,16 +1,16 @@
 #include "bank_account.h"
 
-const int Customer_Total = 3;
+const int Customer_Total = 5;
 const double Init_Disposit = 50.00;
 
 string customer_name_set[Customer_Total] =
 {
-    "Jesse", "Mike", "Amy"
+    "Jesse", "Mike", "Amy", "Lee", "Jone"
 };
 
 string cuntormer_no_set[Customer_Total] =
 {
-    "#332623", "#667342", "#998123"
+    "#332623", "#667342", "#998123", "#998120", "#110977"
 };
 
 void user_menu()
@@ -38,7 +38,9 @@ int main(int argc, char const *argv[])
     {
         Bank_Account(customer_name_set[0], cuntormer_no_set[0]),
         Bank_Account(customer_name_set[1], cuntormer_no_set[1]),
-        Bank_Account(customer_name_set[2], cuntormer_no_set[2])
+        Bank_Account(customer_name_set[2], cuntormer_no_set[2]),
+        Bank_Account(customer_name_set[3], cuntormer_no_set[3]),
+        Bank_Account(customer_name_set[4], cuntormer_no_set[4])
     };
 
     
@@ -67,6 +69,7 @@ int main(int argc, char const *argv[])
                         cout << "Enter your money you want to deposit: $";
                         cin >> user_money_deposit;
                         bank_account[user_index].deposit_money(user_money_deposit);
+                        bank_account[user_index].show_account_data();
                         cout << "OK" << endl;
                         break;
                     }
@@ -109,6 +112,7 @@ int main(int argc, char const *argv[])
                         else 
                         {
                             cout << "OK" << endl;
+                            bank_account[user_index].show_account_data();
                             break; 
                         }
                     }
