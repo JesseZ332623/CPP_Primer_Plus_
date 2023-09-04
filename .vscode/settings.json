@@ -52,7 +52,9 @@
         "fstream": "cpp",
         "cstdarg": "cpp",
         "iomanip": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "stack": "cpp",
+        "ctime": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -36,7 +36,6 @@ bool Bank_Account::deposit_money(double & money)
     return true;
 }
 
-
 int Bank_Account::withdraw_money(double & money)
 {
     if (money < 0)
