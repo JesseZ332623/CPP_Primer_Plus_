@@ -2,6 +2,7 @@
 #define _MY_TIME_1_H_
 
 #include <iostream>
+#include <string>
 
 class Time
 {

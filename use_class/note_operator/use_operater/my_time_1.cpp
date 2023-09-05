@@ -40,6 +40,6 @@ Time Time::operator+(const Time & time) const
 
 void Time::show() const
 {
-    std::cout << hours << " hours, " << minutes << " minutes";
+    std::cout << '[' << hours << " hours, " << minutes << " minutes" << ']';
     std::cout.put('\n');
 }
