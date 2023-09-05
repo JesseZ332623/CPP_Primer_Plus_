@@ -7,11 +7,12 @@ int main(int argc, char const *argv[])
 
     _Operater _operater_[2]
     {
-        _Operater("Hello ", 10.00),
-        _Operater("World!", 21.00)
+        _Operater("Hello ", 41.21),
+        _Operater("World! ", 21.65),
     };
 
     _Operater *temp_oper = _operater_[0] + _operater_[1];
+    
 
     _operater_[0].show_struct_data();
     _operater_[1].show_struct_data();
