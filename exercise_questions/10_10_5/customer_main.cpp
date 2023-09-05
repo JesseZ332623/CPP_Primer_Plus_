@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
     
     set_digital(2);
     std::cout.precision(2);
-    std:: cout << "Customer count: ("
+    std::cout << "Customer count: ("
                << TOTAL_CUSTOMER
                << ") Total Payment: $"
                << customer_t.get_payment_total()

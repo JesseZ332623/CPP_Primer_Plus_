@@ -27,7 +27,8 @@ class Customer_t
         /*默认构建函数 引导用户输入数据*/
         Customer_t(); 
 
-        Customer_t(std::vector<std::string>::iterator full_name_iter, double *payment);
+        Customer_t(std::vector<std::string>::iterator full_name_iter, 
+                   double *payment);
 
         void show_stack_data() const;      
 

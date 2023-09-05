@@ -33,7 +33,8 @@ Customer_t::Customer_t()
     system("cls");
 }
 
-Customer_t::Customer_t(std::vector<std::string>::iterator full_name_iter, double *payment)
+Customer_t::Customer_t(std::vector<std::string>::iterator full_name_iter, 
+                       double *payment)
 {
     for (int index = 0; index < TOTAL_CUSTOMER; ++index)
     {
@@ -73,8 +74,9 @@ void Customer_t::customer_pop()
 {
     for (int index = 0; index < TOTAL_CUSTOMER; ++index)
     {
+        Customer temp = customer.top();
         customer.pop();
-        total_payment += client[index].payment;
+        total_payment += temp.payment;
     }
 }
 
