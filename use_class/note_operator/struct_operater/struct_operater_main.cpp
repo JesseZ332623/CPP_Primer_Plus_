@@ -1,6 +1,5 @@
 #include "struct_operater.h"
 
-
 int main(int argc, char const *argv[])
 {
     system("cls");
