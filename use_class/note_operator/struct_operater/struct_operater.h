@@ -25,6 +25,7 @@ class _Operater
 
         _Operater *operator+(const _Operater & oper_1) const;
 
+
         void show_struct_data() const;
 
         ~_Operater(); 
