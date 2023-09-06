@@ -22,6 +22,7 @@ class Friend_Function
 Friend_Function::Friend_Function()
 {
     disc += "Friend_Function";
+    
     data_t.reserve(data_len);
     
     for (int index = 0; index < data_len; ++index)
