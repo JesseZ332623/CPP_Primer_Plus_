@@ -1,3 +1,5 @@
+/*Friend_Function.cpp*/
+
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -15,8 +17,7 @@ class Friend_Function
 
         friend std::ostream & operator<<(std::ostream & os, const Friend_Function & _friend);
 
-        ~Friend_Function() {}
-        
+        ~Friend_Function() {}      
 };
 
 Friend_Function::Friend_Function()
