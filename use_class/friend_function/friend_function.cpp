@@ -52,5 +52,5 @@ int main(int argc, char const *argv[])
 
     std::cout << _friend_func << "Over...." << std::endl;
     
-    return 0;
+    return EXIT_SUCCESS;
 }
