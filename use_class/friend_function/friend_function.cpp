@@ -1,4 +1,7 @@
-/*Friend_Function.cpp*/
+/**
+    Friend_Function.cpp 
+*   @author Jesse_EC
+*/
 
 #include <iostream>
 #include <ostream>
@@ -15,6 +18,11 @@ class Friend_Function
     public:
         Friend_Function();
 
+        /**
+         * @param os a reference of std::ostream  usually:std::cout
+         * @param _friend a reference of class Friend_Function
+         * @return a reference of @c std::ostream
+        */
         friend std::ostream & operator<<(std::ostream & os, const Friend_Function & _friend);
 
         ~Friend_Function() {}      
@@ -54,3 +62,5 @@ int main(int argc, char const *argv[])
     
     return EXIT_SUCCESS;
 }
+
+
