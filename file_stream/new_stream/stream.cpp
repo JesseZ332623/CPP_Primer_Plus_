@@ -15,10 +15,9 @@ std::vector<double>::iterator writer_vecter_data(const double *array_list);
 void write_data_infile();
 
 std::vector<double>::iterator writer_vecter_data(const double *array_list)
-{
-    
+{  
     std::vector<double> temp_data;
-
+    
     if (!arr_list)
     {
         return temp_data.begin();
