@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <ostream>
+#include <fstream>
 #include <vector>
 
 const size_t data_len = 10;
@@ -57,8 +58,12 @@ std::ostream & operator<<(std::ostream & os, const Friend_Function & _friend)
 int main(int argc, char const *argv[])
 {
     Friend_Function _friend_func;
+    std::ofstream file_stream("vector_data.txt", std::ios::out);
 
-    std::cout << _friend_func << "Over...." << std::endl;
+    std::cout << _friend_func << "Over....\n" << std::endl;
+    file_stream << _friend_func;
+
+    file_stream.close();
     
     return EXIT_SUCCESS;
 }
