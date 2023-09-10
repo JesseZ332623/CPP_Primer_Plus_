@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
     print_line(25);
 
     /*矢量倍增*/
-    /* math_vector_1 * 3 */
+    /* math_vector_1 * 3*/
     std::cout << "math_vector_1 * 3 = \n";
     math_vector_3 = math_vector_1 * 3;
     std::cout << math_vector_3;
