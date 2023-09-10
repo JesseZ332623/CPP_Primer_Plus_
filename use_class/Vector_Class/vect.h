@@ -18,20 +18,21 @@ namespace VECTOR
     {
         public:
             /*
-            表示矢量可以用两种方式：
+            表示矢量可以用两种方式:
                 1）向 53.1 度行进 50 个单位
                 2）向 X 轴 行进 30 单位，再向 Y 轴行进40单位
 
                 因此，可以声明一个枚举类型的变量 Mode，来对这两种表达模式进行切换。
+                1) RECT 2) POL 
             */
             enum Mode {RECT, POL};      
         private:
+            Mode mode;
+
             double mag;     /*表达方式 1）*/
             double ang;
             double x;       /*表达方式 2）*/
             double y;
-
-            Mode mode;
 
             /* 一些私有方法，用于设置类私有数据的值。*/
            void set_mag();
@@ -48,14 +49,14 @@ namespace VECTOR
             *   @param n2 矢量的第二个参数
             *   @param from 表达模式，默认为 RECT
             */
-            Vector(double n1, double n2, Mode from = RECT);
+            Vector(double n1, double n2, Mode form = RECT);
             /**
              *  用于重设矢量的值以及模式，参数和构建函数一样
              *  @param n1 矢量的第一个参数
             *   @param n2 矢量的第二个参数
             *   @param from 表达模式，默认为 RECT
             */
-            void reset(double n1, double n2, Mode from = RECT);
+            void reset(double n1, double n2, Mode form = RECT);
 
             /*
                 用于返回各个私有数据的值
@@ -64,6 +65,12 @@ namespace VECTOR
             double yval() const { return y; }
             double magval() const { return mag; }
             double angval() const { return ang; }
+            
+            /**
+                用于模式的切换
+            *   @param _mode 枚举类型，有 RECT 和 POL 两个成员
+            */
+            void mode_set(Mode _mode);
 
             /*
                 对符号进行重载，
@@ -107,18 +114,19 @@ namespace VECTOR
             *   @param const Implicitly calling an object
             *   @return class Vector
             */
-            friend Vector operator*(double n, const Vector & vec) const;
+            friend Vector operator*(double n, const Vector & vec);
 
             /**
             *   重载 << 运算符来显示类 Vector 的值。 Eg. std::cout << vec << std::endl;
             *   @param os 流式输出对象，一般是 std::cout
             *   @param vec Vector类对象
             */
-            friend std::ostream operator<<(std::ostream & os, Vector & vec);
+            friend std::ostream & operator<<(std::ostream & os, Vector & vec);
 
-            ~Vector();
+            friend void _mode_set(Vector & vec, Mode _mode);
+
+            ~Vector() {}
     };
-
 };
 
 #endif
