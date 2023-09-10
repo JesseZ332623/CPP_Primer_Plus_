@@ -1,4 +1,4 @@
-#include "vect.h"
+#include "include/vect.h"
 #include <cmath>
 
 using std::sqrt, std::sin, std::cos, std::atan, std::atan2, std::pow;
@@ -136,13 +136,11 @@ namespace VECTOR
     {
         if (vec.mode == Vector::RECT)
         {
-            os << "[x, y] = (" << vec.x << ',' << vec.y << ')';
-            os.put('\n');
+            os << "[x, y] = (" << vec.x << ',' << vec.y << ") or ";
         }
         else if (vec.mode == Vector::POL)
         {
-            os << "[m, a] = (" << vec.mag << ',' << vec.ang * Red_to_Deg << ')';
-            os.put('\n');
+            os << "[m, a] = (" << vec.mag << ',' << vec.ang * Red_to_Deg << ")";
         }
         else
         {

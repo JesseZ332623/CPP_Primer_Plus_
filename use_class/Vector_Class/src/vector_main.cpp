@@ -1,4 +1,4 @@
-#include "vect.h"
+#include "include/vect.h"
 
 using namespace VECTOR;
 
@@ -6,6 +6,7 @@ void print_line(size_t lines);
 
 void print_line(size_t lines)
 {
+    std::cout.put('\n');
     while (lines--)
     {
         std::cout.put('-');
@@ -40,7 +41,7 @@ int main(int argc, char const *argv[])
     std::cout << "vector_1 + vector_2 = \n";
     math_vector_3 = math_vector_1 + math_vector_2;
     std::cout << math_vector_3;
-    std::cout << "or\n"; mode_set(math_vector_3, Vector::POL);
+    mode_set(math_vector_3, Vector::POL);
     std::cout << math_vector_3;
     print_line(25);
 
@@ -49,7 +50,7 @@ int main(int argc, char const *argv[])
     std::cout << "vector_1 - vector_2 = \n";
     math_vector_3 = math_vector_1 - math_vector_2;
     std::cout << math_vector_3;
-    std::cout << "or\n"; mode_set(math_vector_3, Vector::POL);
+    mode_set(math_vector_3, Vector::POL);
     std::cout << math_vector_3;
     print_line(25);
 
@@ -58,10 +59,9 @@ int main(int argc, char const *argv[])
     std::cout << "math_vector_1 * 3 = \n";
     math_vector_3 = math_vector_1 * 3;
     std::cout << math_vector_3;
-    std::cout << "or\n"; mode_set(math_vector_3, Vector::POL);
+    mode_set(math_vector_3, Vector::POL);
     std::cout << math_vector_3;
     print_line(25);
-
 
     return EXIT_SUCCESS;
 }
