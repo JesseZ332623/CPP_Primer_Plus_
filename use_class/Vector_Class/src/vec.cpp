@@ -81,16 +81,16 @@ namespace VECTOR
             x = n1;
             y = n2;
 
-            set_x();
-            set_y();
+            set_mag();
+            set_ang();
         }
         else if (mode == POL)
         {
             mag = n1;
             ang = n2 / Red_to_Deg;
 
-            set_mag();
-            set_ang();
+            set_x();
+            set_y();
         }
         else 
         {
@@ -136,11 +136,11 @@ namespace VECTOR
     {
         if (vec.mode == Vector::RECT)
         {
-            os << "[x, y] = (" << vec.x << ',' << vec.y << ") or ";
+            os << "[x, y] = (" << vec.x << ", " << vec.y << ") or ";
         }
         else if (vec.mode == Vector::POL)
         {
-            os << "[m, a] = (" << vec.mag << ',' << vec.ang * Red_to_Deg << ")";
+            os << "[m, a] = (" << vec.mag << ", " << vec.ang * Red_to_Deg << ")";
         }
         else
         {

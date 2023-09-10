@@ -54,6 +54,15 @@ int main(int argc, char const *argv[])
     std::cout << math_vector_3;
     print_line(25);
 
+    /*求一个矢量的在负象限的位置*/
+    /*-vector_1*/
+    std::cout << "-vector_1 = \n";
+    math_vector_3 = -math_vector_1;
+    std::cout << math_vector_3;
+    mode_set(math_vector_1, Vector::POL);
+    std::cout << math_vector_3;
+    print_line(25);
+
     /*矢量倍增*/
     /* math_vector_1 * 3*/
     std::cout << "math_vector_1 * 3 = \n";
