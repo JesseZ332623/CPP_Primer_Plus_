@@ -123,7 +123,7 @@ namespace VECTOR
             */
             friend std::ostream & operator<<(std::ostream & os, Vector & vec);
 
-            friend void _mode_set(Vector & vec, Mode _mode);
+            friend void mode_set(Vector & vec, Mode _mode);
 
             ~Vector() {}
     };

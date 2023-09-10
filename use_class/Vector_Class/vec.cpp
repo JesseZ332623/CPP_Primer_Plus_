@@ -136,12 +136,12 @@ namespace VECTOR
     {
         if (vec.mode == Vector::RECT)
         {
-            os << "(x, y) = (" << vec.x << ',' << vec.y << ')';
+            os << "[x, y] = (" << vec.x << ',' << vec.y << ')';
             os.put('\n');
         }
         else if (vec.mode == Vector::POL)
         {
-            os << "(m, a) = (" << vec.mag << ',' << vec.ang * Red_to_Deg << ')';
+            os << "[m, a] = (" << vec.mag << ',' << vec.ang * Red_to_Deg << ')';
             os.put('\n');
         }
         else
@@ -152,7 +152,7 @@ namespace VECTOR
         return os;
     }
 
-    void _mode_set(Vector & vec, VECTOR::Vector::Mode _mode)
+    void mode_set(Vector & vec, VECTOR::Vector::Mode _mode)
     {
         vec.mode_set(_mode);
     }
