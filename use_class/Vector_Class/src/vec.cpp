@@ -65,7 +65,7 @@ namespace VECTOR
         else 
         {
             cout << "Incurrent to 3rd argument to Vector() --";
-            cout << "Vecter data set to 0." << std::endl;
+            cout << "Vector data set to 0." << std::endl;
             mag = ang = 0;
             x = y = 0;
             mode = RECT;
@@ -95,7 +95,7 @@ namespace VECTOR
         else 
         {
             cout << "Incurrent to 3rd argument to Vector() --";
-            cout << "Vecter data set to 0." << std::endl;
+            cout << "Vector data set to 0." << std::endl;
             mag = ang = 0;
             x = y = 0;
             mode = RECT;
