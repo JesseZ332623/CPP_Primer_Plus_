@@ -45,7 +45,7 @@ std::ostream & operator<<(std::ostream & os, const Friend_Function & _friend)
 {
     os << _friend.disc << ' ';
 
-    os << "Class data contence: " << std::endl;
+    os << "Class data content: " << std::endl;
     for (const auto & vec_data : _friend.data_t)
     {
         os << vec_data;
