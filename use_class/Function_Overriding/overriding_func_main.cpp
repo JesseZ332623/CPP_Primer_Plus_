@@ -4,23 +4,24 @@ int main(int argc, char const *argv[])
 {
     using std::cout, std::endl, std::list, std::vector;
 
-    vector<double> vec = {10, 21, 13, 15, 88, 125, 56, 1000, 1332, 170};
+    list<int> ls = {12, 67, 98};
 
-    Basic_Class *base_set = new Basic_Class[2]
+  
+    Derive_Class *derive_set = new Derive_Class[2]
     {
-        Basic_Class(),
-        Basic_Class("Basic Class 2", vec)
+        Derive_Class(),
+        Derive_Class(ls)
     };
 
-    base_set[0].show_data();
-    base_set[1].show_data();
+    derive_set[0].show_data();
+    derive_set[1].show_data();
 
-    base_set[1].copy_data(base_set[0], 5);
-
-    cout << "\nclass 0 data: \n";
-    base_set[0].show_data();
-
-    delete[] base_set;
+    derive_set[1].copy_data(derive_set[0]);
     
-    return 0;
+    derive_set[0].show_data();
+    derive_set[1].show_data();
+
+    delete[] derive_set;
+    
+    return EXIT_SUCCESS;
 }

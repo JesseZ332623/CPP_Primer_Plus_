@@ -25,21 +25,21 @@ class Basic_Class
         ~Basic_Class() {}
 };
 
-class Derive_Class: public Basic_Class
+class Derive_Class : private Basic_Class
 {
     private:
-        std::list<int> list_data;
+        std::list<int> *list_data;
 
     public:
         Derive_Class();
         Derive_Class(std::list<int> & dat);
 
-        bool copy_data(std::list<int>::iterator list_iter, size_t copy_count, std::list<int> copy_tar);
+        bool copy_data(Derive_Class & tar) const;
 
         void show_data();
 
 
-        ~Derive_Class() {}
+        ~Derive_Class();
 
 };
 
