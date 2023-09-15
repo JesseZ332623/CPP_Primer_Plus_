@@ -56,9 +56,9 @@ Date:2023-9-15
 
 等价于
 
-    ```C++
+```C++
         Stonewt stonewt = Stonewt(100.00);
-    ```    
+```    
 
 stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个构造函数，会将这个  double 类型强制转换成一个 Stonewt 值，
 然后与内部的构造函数匹配，看看是否有正确的参数列表。
@@ -67,14 +67,14 @@ stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个
 
 那么，这样的表达式合法吗？
 
-    ```C++
+```C++
         Stonewt stonewt(53.750); 
         double object_data = stonewt;
-    ```
+```
 
 答案是合法的，但是需要在类声明里面添加如下的转换函数声明：
 
-    ```C++
+```C++
     class Stonewt
     {
         private:
@@ -98,11 +98,11 @@ stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个
 
             ~Stonewt() {};
     };  
-    ```
+```
 
     conversion function 的实现如下：
 
-    ```C++
+```C++
         Stonewt::operator int() const
         {
             return int(pounds + 0.5);       /*这里 +0.5 是为了四舍五入*/
@@ -112,11 +112,11 @@ stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个
         {
             return pounds;
         }
-    ```
+```
 
 有了这些函数，就可以进行强制转换，例子如下
 
-    ```C++
+```C++
         Stonewt _stont_t(10, 25.58);
 
         /*转换成 int 类型*/
@@ -124,7 +124,7 @@ stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个
 
         /*转换成 double 类型*/
         std::cout << stone_t << "pounds. \n";           /*值为 165.58*/
-    ```
+```
 
 tips:使用此类函数时，务必要避免二义性。
 
