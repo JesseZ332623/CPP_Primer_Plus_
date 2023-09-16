@@ -34,8 +34,7 @@ Complex Complex::operator*(Complex & comp_2) const
 
 Complex Complex::operator*(double x) const
 {
-    Complex result(x * real_number, x * imaginary_number);
-    return result;
+    return Complex(x * real_number, x * imaginary_number);
 }
 
 Complex Complex::operator~() const
