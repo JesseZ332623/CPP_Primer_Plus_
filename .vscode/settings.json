@@ -55,7 +55,8 @@
         "sstream": "cpp",
         "stack": "cpp",
         "ctime": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "complex": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

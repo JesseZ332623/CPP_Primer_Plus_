@@ -59,15 +59,14 @@ namespace VECTOR
             *   @param n2 矢量的第二个参数
             *   @param from 表达模式，默认为 RECT
             */
-
             Vector(double n1, double n2, Mode form = RECT);
+
             /**
              *  用于重设矢量的值以及模式，参数和构建函数一样
              *  @param n1 矢量的第一个参数
             *   @param n2 矢量的第二个参数
             *   @param from 表达模式，默认为 RECT
             */
-
             void reset(double n1, double n2, Mode form = RECT);
 
             /*
@@ -141,6 +140,12 @@ namespace VECTOR
             *   @param _mode 枚举类型，有 RECT 和 POL 两个成员
             */
             friend void mode_set(Vector & vec, Mode _mode);
+
+            /*
+                一个转换函数，
+                将 Vector 类对象转换成 double 类型的值，表示矢量的长度。
+            */
+            explicit operator double() const { return magval(); }
 
             ~Vector() {}
     };
