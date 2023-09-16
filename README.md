@@ -36,20 +36,21 @@ class Stonewt
         ~Stonewt() {};
 };
 ```
-    
+
 一般情况下，是这样初始化这个类的：
 
 ```C++
 Stonewt stonewt(53.750); 
- ```
+```
 
 或
 
-```C++   
+```C++  
 Stonewt stonewt(10 ,53.750);
-```
+ ```
 
 当然，也有一个特殊的方法：
+
 ```C++
 Stonewt stonewt = 100.00;
 ```  
@@ -58,7 +59,7 @@ Stonewt stonewt = 100.00;
 
 ```C++
 Stonewt stonewt = Stonewt(100.00);
-```    
+```
 
 stonewt 是一个 object，100.00 是一个 double 类型，stonewt 内有三个构造函数，会将这个  double 类型强制转换成一个 Stonewt 值，
 然后与内部的构造函数匹配，看看是否有正确的参数列表。
