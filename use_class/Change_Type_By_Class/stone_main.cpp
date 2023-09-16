@@ -33,15 +33,15 @@ int main(int argc, char const *argv[])
 #endif
 
     //Stonewt stont_t(10, 25.58);
-    Stonewt stont_t = Stonewt(10, 25.58);
+    Stonewt stont_t = Stonewt(9, 2.8);
 
-    double p_wt = stont_t;
+    
 
-    std::cout << "converse to double => ";
-    std::cout << int(p_wt) << " pounds.\n";
+    std::cout << "converse to int => ";
+    std::cout << int(stont_t) << " pounds.\n";
 
     std::cout << "coverse to double => ";
-    std::cout << p_wt << " pounds.\n";
+    std::cout << double(stont_t) << " pounds.\n";
 
     return EXIT_SUCCESS;
 }
