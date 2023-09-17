@@ -38,7 +38,6 @@ Complex Complex::operator*(double x) const
 }
 
 Complex Complex::operator~() const
-{
+{                                                  
     return Complex(real_number, -imaginary_number);
 }
-

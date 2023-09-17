@@ -129,4 +129,114 @@ std::cout << stone_t << "pounds. \n";           /*值为 165.58*/
 
 tips:使用此类函数时，务必要避免二义性。
 
-Next：显示的强制转换 （explicit 关键字）
+显示的强制转换 （explicit 关键字）
+在 类声明成员转换函数时，在函数前面加上 explicit 关键字，就可以显示的进行转换，如下：
+
+```C++
+class Stonewt
+{
+    private:
+        enum { LBS_PER_STN = 14 };      /* 1 英石 = 14 磅 */
+
+        int stone;
+        double pds_left;
+        double pounds;
+            
+    public:
+        Stonewt();
+        Stonewt(double lbs);
+        Stonewt(int stn, double lbs);
+                
+        void show_lbs() const;
+        void show_stn() const;
+
+        /*conversion function*/
+        explicit operator int() const;       /*对 int 类型的强制转换*/
+        explicit operator double() const;    /*对 double 类型的强制转换*/
+
+        ~Stonewt() {};
+};
+```
+
+这样以来，像 double pounds = stone_wt; 这样的隐式转换就不能生效了，
+必须使用 double pounds = double(stone_wt); 这样的语句显式的转换数据，避免了一些不必要的麻烦。
+
+Date:2023.09.16 书本编程题 P345 11.9.7 Complex 类的实现
+
+```C++
+/**
+ * 书本编程题 P345 11.9.7
+ * 完成复数 Complex 类的设计，要完成如下操作：
+ * （1）基本的运算 （假设有两个复数 a = (A,Bi) b = (C, Di)）：
+ *      +   a + b = (A + C, Bi + Ci)
+ *      -   a - b = (A - C, Bi - Ci)
+ *      *   a * b = ((A * C - B * D), (A * D + Bi * C)i)
+ *      *   x * a = (x * A, x * Bi) [其中 x 为实数]
+ *      ~      ~a = (A, -Bi)
+ * 
+ *  (2) 重载 << 和 >> 符号 完成复数值的输入与输出
+ *      
+ *      << friend std::ostream & operator<<(std::ostream & _os, Complex & comp);
+ *      >> friend std::istream & operator>>(std::istream & _enter, Complex & comp);
+*/
+
+//类声明如下：
+class Complex
+{
+    private:
+        double real_number;
+        double imaginary_number;
+        
+    public:
+        Complex();
+        Complex(double real_number, double imaginary_number);
+
+        void set_real(double real_num) { real_number = real_num; }
+        void set_imaginary(long double imag_num) { imaginary_number = imag_num; }
+
+        Complex operator+(Complex & comp_2) const;
+
+        Complex operator-(Complex & comp_2) const;
+
+        Complex operator*(Complex & comp_2) const;
+
+        Complex operator*(double x) const;
+
+        friend Complex operator*(double x, Complex & comp)
+        {
+            return Complex(x * comp.real_number, x * comp.imaginary_number);
+        }
+
+        Complex operator~() const;
+
+        friend std::ostream & operator<<(std::ostream & _os, Complex & comp)
+        {
+            _os << '(' << comp.real_number << ", " << comp.imaginary_number << "i)";
+
+            return _os;
+        }
+
+        friend std::istream & operator>>(std::istream & _enter, Complex & comp)
+        {
+            double real_number;
+            double imaginary_number;   
+
+            std::cout << "Real Number: ";
+            _enter >> real_number;
+
+            std::cout << "Imaginary Numbe: ";
+            _enter >> imaginary_number;
+
+            comp.set_real(real_number);
+            comp.set_imaginary(imaginary_number);
+
+            return _enter;
+        }
+
+        ~Complex() {}
+    };
+```
+
+具体的实现和用例 见 exercise_questions\11_9_7
+
+Date:2023.09.17 章节 12：类的动态内存分配

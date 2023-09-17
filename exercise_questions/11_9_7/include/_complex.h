@@ -1,3 +1,24 @@
+/**
+ * @author Jesse_EC
+ * @date 2023.09.17
+*/
+
+/**
+ * 书本编程题 P345 11.9.7
+ * 完成复数 Complex 类的设计，要完成如下操作：
+ * （1）基本的运算 （假设有两个复数 a = (A,Bi) b = (C, Di)）：
+ *      +   a + b = (A + C, Bi + Ci)
+ *      -   a - b = (A - C, Bi - Ci)
+ *      *   a * b = ((A * C - B * D), (A * D + Bi * C)i)
+ *      *   x * a = (x * A, x * Bi) [其中 x 为实数]
+ *      ~      ~a = (A, -Bi)
+ * 
+ *  (2) 重载 << 和 >> 符号 完成复数值的输入与输出
+ *      
+ *      << friend std::ostream & operator<<(std::ostream & _os, Complex & comp);
+ *      >> friend std::istream & operator>>(std::istream & _enter, Complex & comp);
+*/
+
 #ifndef _COMPLEX_H_
 #define _COMPLEX_H_
 
