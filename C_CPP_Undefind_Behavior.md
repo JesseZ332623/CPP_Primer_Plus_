@@ -285,7 +285,7 @@ One Defination Rule (ODR) 是关于程序中函数、对象等实体定义的一
 
 这个规则确保了C++程序中的实体在语义上都是唯一确定的,不会出现歧义。
 
-一些One Definition Rule的关键点:
+### 一些 One Definition Rule 的关键点
 
 1.函数、全局变量、静态成员变量等在程序生命周期内只能定义一次。
 
