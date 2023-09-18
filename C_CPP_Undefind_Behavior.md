@@ -28,21 +28,21 @@ C 常见的未定义行为：
 
 [2] 访问空指针，或悬空指针。
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
 
-    int main(int argc, char const *argv[])
-    {
-        int *ptr = (int *)malloc(10 * sizeof(int));
+int main(int argc, char const *argv[])
+{
+    int *ptr = (int *)malloc(10 * sizeof(int));
 
-        free(ptr);          /*此时，这个指针以及被释放， ptr 为悬空指针*/
+    free(ptr);          /*此时，这个指针以及被释放， ptr 为悬空指针*/
 
-        *ptr = 1000;        /*如果继续访问该指针，会触发未定义行为，导致程序奔溃*/
+    *ptr = 1000;        /*如果继续访问该指针，会触发未定义行为，导致程序奔溃*/
 
-        return 0;
-    }
-    ```
+    return 0;
+}
+```
 
 所以需要这样修改：
 
