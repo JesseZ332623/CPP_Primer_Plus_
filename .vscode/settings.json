@@ -56,7 +56,13 @@
         "stack": "cpp",
         "ctime": "cpp",
         "list": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp",
+        "stop_token": "cpp",
+        "condition_variable": "cpp",
+        "ratio": "cpp",
+        "semaphore": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
