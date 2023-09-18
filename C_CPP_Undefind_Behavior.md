@@ -350,7 +350,7 @@ int main(int argc, char const *argv[])
 ```
 
 当然，修改的方法也很简单，发一把公共的锁，只有某个进程持有这把锁的时候，才准许访问这片数据。
-此时，就需要引入 'mutex' 头文件， 修改的代码如下：
+此时，就需要引入 mutex 头文件， 修改的代码如下：
 
 ```C++
 #include <iostream>
@@ -395,3 +395,142 @@ int main(int argc, char const *argv[])
     return EXIT_SUCCESS;
 }
 ```
+
+##### 死锁(Deadlock):多个线程互相持有对方需要的锁,形成了循环等待
+
+```C++
+#include <fstream>
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include <string>
+
+using namespace std;
+
+class LogFile
+{
+    private:
+        std::mutex _mu;
+        std::mutex _mu2;
+        ofstream f;
+
+    public:
+        LogFile()
+        {
+            f.open("log.txt");
+        }
+        ~LogFile()
+        {
+            f.close();
+        }
+        void shared_print(string msg, int id)
+        {
+            std::lock_guard<std::mutex> guard(_mu);
+            std::lock_guard<std::mutex> guard2(_mu2);
+            f << msg << id << endl;
+            cout << msg << id << endl;
+        }
+        void shared_print2(string msg, int id)
+        {
+            std::lock_guard<std::mutex> guard(_mu2);
+            std::lock_guard<std::mutex> guard2(_mu);
+            f << msg << id << endl;
+            cout << msg << id << endl;
+        }
+};
+
+void function_1(LogFile &log)
+{
+    for (int i = 0; i > -100; i--)
+        log.shared_print2(string("From t1: "), i);
+}
+
+int main(int argc, char const *argv[])
+{
+    LogFile log;
+    std::thread t1(function_1, std::ref(log));
+
+    for (int i = 0; i < 100; i++)
+        log.shared_print(string("From main: "), i);
+
+    t1.join();
+
+    return EXIT_SUCCESS;
+}
+```
+
+上面线程 A 先获取了锁_mu，线程 B 获取了锁_mu2，进而线程 A 还需要获取锁_mu2才能继续执行，但是由于锁_mu2被线程 B 持有还没有释放，线程 A 为了等待锁_mu2资源就阻塞了。
+线程 B 这时候需要获取锁_mu才能往下执行，但是由于锁_mu被线程A持有，导致 B 也进入阻塞，这就是死锁现象。
+
+当然，解决死锁也不难，使用 std::lock() 就能够保证将多个互斥锁同时上锁，代码如下：
+
+```C++
+#include <iostream>
+#include <thread>
+#include <string>
+#include <mutex>
+#include <fstream>
+
+using namespace std;
+
+class LogFile
+{
+    std::mutex _mu;
+    std::mutex _mu2;
+    ofstream f;
+
+public:
+    LogFile()
+    {
+        f.open("log.txt");
+    }
+    ~LogFile()
+    {
+        f.close();
+    }
+    void shared_print(string msg, int id)
+    {
+        std::lock(_mu, _mu2);
+        std::lock_guard<std::mutex> guard(_mu, std::adopt_lock);
+        std::lock_guard<std::mutex> guard2(_mu2, std::adopt_lock);
+        f << msg << id << endl;
+        cout << msg << id << endl;
+    }
+    void shared_print2(string msg, int id)
+    {
+        std::lock(_mu, _mu2);
+        std::lock_guard<std::mutex> guard(_mu2, std::adopt_lock);
+        std::lock_guard<std::mutex> guard2(_mu, std::adopt_lock);
+        f << msg << id << endl;
+        cout << msg << id << endl;
+    }
+};
+
+void function_1(LogFile &log)
+{
+    for (int i = 0; i > -100; i--)
+    {
+        log.shared_print2(string("From t1: "), i);
+    }
+}
+
+int main()
+{
+    LogFile log;
+    std::thread t1(function_1, std::ref(log));
+
+    for (int i = 0; i < 100; i++)
+        log.shared_print(string("From main: "), i);
+
+    t1.join();
+
+    return EXIT_SUCCESS;
+}
+```
+
+#### 饥饿(Starvation):一个线程由于优先级太低,始终得不到CPU调度执行,也无法访问共享资源
+
+这玩意模拟不出来的吧。。。。。
+
+Date:2023.09.18
+Author: Jesse_EC
