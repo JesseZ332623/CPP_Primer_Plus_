@@ -7,10 +7,7 @@
 #include <string>
 #include <cstring>
 
-void thread_01(int _val);
+void thread_01();
 
-void thread_02(int _val);
-
-void thread_03(int _val);
 
 #endif

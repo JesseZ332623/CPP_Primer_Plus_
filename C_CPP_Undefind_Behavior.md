@@ -302,3 +302,96 @@ One Defination Rule (ODR) 是关于程序中函数、对象等实体定义的一
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 ### [10] 多线程数据竞争
+
+在 C++ 多线程编程中，会出现多个进程同时访问同一片数据，由于线程切换的不确定性，会导致数据异常。
+
+#### 常见的线程竞争有
+
+1.多个线程在同一段时间读取和写入共享数据,由于代码执行顺序不确定,导致最终结果无法预测。
+2.死锁(Deadlock):多个线程互相持有对方需要的锁,形成了循环等待。
+3.饥饿(Starvation):一个线程由于优先级太低,始终得不到CPU调度执行,也无法访问共享资源。
+
+接下来用代码来详解上述三条：
+
+##### 多个线程在同一段时间读取和写入共享数据,由于代码执行顺序不确定,导致最终结果无法预测
+
+```C++
+#include <iostream>
+#include <thread>
+
+int global_data = 0;
+
+void thread_func();
+
+/*
+    一个函数，在没有锁的情况下访问 global_data，对这个数据进行累加
+*/
+void thread_func()                      
+{
+    for (int i = 0; i < 1000000; ++i)
+    {
+        ++global_data;
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    /*创建 3 个进程*/
+    std::thread th_1(thread_func);      
+    std::thread th_2(thread_func);
+    std::thread th_3(thread_func);
+
+    th_1.join();        /*等待 3 个进程结束*/
+    th_2.join();
+    th_2.join();
+
+    std::cout << global_data << '\n';       //相信我，在没有锁的情况下，出来的结果会很奇怪~
+}
+```
+
+当然，修改的方法也很简单，发一把公共的锁，只有某个进程持有这把锁的时候，才准许访问这片数据。
+此时，就需要引入 'mutex' 头文件， 修改的代码如下：
+
+```C++
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+std::mutex mtx;             /*一把公共的锁*/
+
+int global_value = 0;
+
+void thread_01()
+{
+    for (int i = 0; i < 10000000; i++)
+    {
+        /*
+            当进程需要修改数据的时候，先给他上把锁，
+            确保只有这个进程可以修改数据。
+        */
+        mtx.lock();         
+        ++global_value;     /* 修改数据 */
+
+        /*
+            数据修改结束后，把锁放回去，让别的进程来拿锁。
+        */
+        mtx.unlock();
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    /*创建 3 个进程*/
+    std::thread th_1(thread_01);
+    std::thread th_2(thread_01);
+    std::thread th_3(thread_01);
+
+    th_1.join();    /*等待 3 个进程结束*/
+    th_2.join();
+    th_3.join();
+
+    std::cout << global_value << '\n';  /*最后的结果是正确的 30000000*/
+
+    return EXIT_SUCCESS;
+}
+```
