@@ -46,116 +46,116 @@ int main(int argc, char const *argv[])
 
 所以需要这样修改：
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
 
-    int main(int argc, char const *argv[])
-    {
-        int *ptr = (int *)malloc(10 * sizeof(int));
+int main(int argc, char const *argv[])
+{
+    int *ptr = (int *)malloc(10 * sizeof(int));
 
-        free(ptr);          /*此时，这个指针以及被释放， ptr 为悬空指针*/
+    free(ptr);          /*此时，这个指针以及被释放， ptr 为悬空指针*/
 
-        *ptr = NULL;        /*将已经被释放的指针的值设置为 NULL*/
+    *ptr = NULL;        /*将已经被释放的指针的值设置为 NULL*/
 
-        return 0;
-    }
-    ```
+    return 0;
+}
+```
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 [4] 修改字符串的字面量。（或者叫只读内存区域）  
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
 
-    int main(int argc, char const *argv[])
-    {
-        char str[10] = "hello";     /*此时字符串 hello 是保存在只读空间的，不可修改。*/
+int main(int argc, char const *argv[])
+{
+    char str[10] = "hello";     /*此时字符串 hello 是保存在只读空间的，不可修改。*/
 
-        str[0] = 'H';               /*强行修改该字符串会触发未定义行为，结果不可预测*/
+    str[0] = 'H';               /*强行修改该字符串会触发未定义行为，结果不可预测*/
 
-        return 0;
-    }
-    ```   
+    return 0;
+}
+```   
 所以需要这样做：
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-    int main(int argc, char const *argv[])
-    {
-        char str[5] = "hello";     /*此时字符串 hello 是保存在只读空间的，不可修改。*/
-        char _str[5];
+int main(int argc, char const *argv[])
+{
+    char str[5] = "hello";     /*此时字符串 hello 是保存在只读空间的，不可修改。*/
+    char _str[5];
 
-        strcpy(_str, str);          /*将字符串拷贝到新字符串*/
+    strcpy(_str, str);          /*将字符串拷贝到新字符串*/
 
-        _str[0] = 'H';              /*然后再进行修改*/
+    _str[0] = 'H';              /*然后再进行修改*/
 
-        /*当然使用 const 关键字也是可以的。*/
-        const char str[5] = "hello";
-    }
-    ```
+    /*当然使用 const 关键字也是可以的。*/
+    const char str[5] = "hello";
+}
+```
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 [5] 返回局部变量的地址。
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
 
-    int *function();
+int *function();
 
-    int *function()
-    {
-        int number = 10;           /*在栈空间声明了临时变量 作用域为这个函数*/
+int *function()
+{
+    int number = 10;           /*在栈空间声明了临时变量 作用域为这个函数*/
 
-        return &number;             /*返回这个变量的地址，但是这个变量已经被销毁。。。。*/
-    }
+    return &number;             /*返回这个变量的地址，但是这个变量已经被销毁。。。。*/
+}
 
-    int main(int argc, char const *argv[])
-    {
-        int *ptr = function();
+int main(int argc, char const *argv[])
+{
+    int *ptr = function();
 
-        printf("%d", *ptr);         /*如果强行访问这个地址，结果是不可预测的。*/
+    printf("%d", *ptr);         /*如果强行访问这个地址，结果是不可预测的。*/
 
-        return 0;
-    }
-    ```
+    return 0;
+}
+```
 所以需要这样修改：
 
-    ```C
-    #include <stdio.h>
-    #include <stdlib.h>
+```C
+#include <stdio.h>
+#include <stdlib.h>
 
-    int *global_ptr = NULL;
+int *global_ptr = NULL;
 
-    int *function();
+int *function();
 
-    int *function()
-    {
-        global_ptr = (int *)malloc(sizeof(int));    /*在使用 malloc 函数堆空间里面申请内存*/
-        static number = 0;                          /*或者使用 static 关键字，改变变量的存储方式和作用域*/
+int *function()
+{
+    global_ptr = (int *)malloc(sizeof(int));    /*在使用 malloc 函数堆空间里面申请内存*/
+    static number = 0;                          /*或者使用 static 关键字，改变变量的存储方式和作用域*/
 
-        *global_ptr = 0;
+    *global_ptr = 0;
 
-        return global_ptr;             /*返回这个指针变量*/
-    }
+    return global_ptr;             /*返回这个指针变量*/
+}
 
-    int main(int argc, char const *argv[])
-    {
-        int *ptr = function();
+int main(int argc, char const *argv[])
+{
+    int *ptr = function();
 
-        printf("%d", *ptr);         /*此时访问这个地址，结果是 0*/
+    printf("%d", *ptr);         /*此时访问这个地址，结果是 0*/
 
-        free(global_ptr);
+    free(global_ptr);
 
-        return 0;
-    }
-    ```
+    return 0;
+}
+```
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 C++ 常见的未定义行为：
@@ -197,45 +197,45 @@ C++ 常见的未定义行为：
 
     (3) 引用不能为空(nullptr)，指针可以为空。
 
-    ```C++
-    /*test.h*/
-    /*篇幅需要，大部分成员方法的实现都是内联的。*/
-    #include <iostream>
-    class My_Class
-    {
-        private:
-            int value;
+```C++
+/*test.h*/
+/*篇幅需要，大部分成员方法的实现都是内联的。*/
+#include <iostream>
+class My_Class
+{
+    private:
+        int value;
 
-        public:
-            My_Class()  { value = 0; }
-            My_Class(int _val) { value = _val; }
+    public:
+        My_Class()  { value = 0; }
+        My_Class(int _val) { value = _val; }
 
-            void show_value() {
-                std::cout << value << std::endl;
-            }
+        void show_value() {
+            std::cout << value << std::endl;
+        }
 
-            ~My_Class() {}
-    };
+        ~My_Class() {}
+};
 
-    /*Test.cpp*/
-    #include "./test.h"
+/*Test.cpp*/
+#include "./test.h"
 
-    My_Class & function(int _val);      /*一个返回 My_Class 类引用的函数*/
+My_Class & function(int _val);      /*一个返回 My_Class 类引用的函数*/
 
-    My_Class & function(int _val)
-    {
-        My_Class my_class(_val);
+My_Class & function(int _val)
+{
+    My_Class my_class(_val);
 
-        return my_class;            /*返回 my_class的引用，但此时这个对象已经被销毁。。。。*/
-    }
+    return my_class;            /*返回 my_class的引用，但此时这个对象已经被销毁。。。。*/
+}
     
-    int main(int argc, char const *argv[])
-    {
-        My_Class &class_ref = function(11);     /*声明一个 My_Class 类型的引用，接受函数 function 的返回值*/
+int main(int argc, char const *argv[])
+{
+    My_Class &class_ref = function(11);     /*声明一个 My_Class 类型的引用，接受函数 function 的返回值*/
 
-        std::cout << class_ref.show_value();    /*但由于那个对象已经被销毁，如果强行访问，结果不可预测。*/
-    }
-    ```
+    std::cout << class_ref.show_value();    /*但由于那个对象已经被销毁，如果强行访问，结果不可预测。*/
+}
+```
 
 当然修改的方式也很简单，使用 static 关键字改变存储方式和作用域，或者使用 new 操作符在堆(heap)中申请内存即可。
 
