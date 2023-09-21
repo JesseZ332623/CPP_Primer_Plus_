@@ -5,6 +5,8 @@
 
 #include "./src/include/_String.h"
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 
 using std::cout, std::cin, std::endl;
 
@@ -13,6 +15,8 @@ const int MAX_LEN = 81;
 
 int main(int argc, char const *argv[])
 {
+    srand(time(0));
+
     _String name;
     _String sayings[AR_SIZE];
     char temp_string[MAX_LEN];
@@ -40,6 +44,7 @@ int main(int argc, char const *argv[])
         }   
     }
     cout << "-----------------------------------------------------------" << endl;
+
     int total = loop_index;
 
     if (total > 0)
@@ -64,18 +69,22 @@ int main(int argc, char const *argv[])
         {
             cout << sayings[loop_index][0] << ": " << sayings[loop_index] << endl;
         }
+
+        int favor_index = rand() % total;
+        _String *favorite = new _String(sayings[favor_index]);
+        
         cout << "-----------------------------------------------------------" << endl;
         cout << "Shortest saying: \n" << sayings[shortest] << endl;
         cout << "First alphabetically: \n" << sayings[first] << endl;
+        cout << name << "'s favorite saying is: " << *favorite << endl;
         cout << "This program used " << _String::String_Count() << " String objects. Bye.\n";
+
+        delete favorite;
     }
     else
     {
         cout << "No input! Bye!" << endl;
     }
-
-    
-
 
     return EXIT_SUCCESS;
 }
