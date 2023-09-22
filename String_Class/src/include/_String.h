@@ -7,8 +7,10 @@
 #define __STRING_H_
 
 #include <iostream>
+#include <fstream>
 
 using std::ostream, std::istream;
+using std::ofstream;
 
 /*
     设计一个字符串类，要求实现如下的字符串基本操作：
@@ -26,9 +28,11 @@ using std::ostream, std::istream;
         1.比较哪个字符串的 ASCII 值大
         2.比较两个字符串是否相等
 
-    5）字符串的输入与输出（重载 ostream 以及 istream）
+    5）字符串的输入与输出（重载 << 以及 >> 运算符)
 
-    当然，标准库中的字符串类，远比这个要复杂。
+    6) 将字符串输出至文件
+
+    当然，标准库中的字符串类，远比这个要复杂。。。。。
 */
 
 
@@ -80,6 +84,13 @@ class _String
         friend bool operator==(const _String & _str_1, const _String & _str_2);
 
         friend ostream & operator<<(ostream & _os, const _String & _str);
+        friend ofstream & operator<<(ofstream & _fs, const _String & _str)
+        {
+            _fs << _str.str;
+
+            return _fs;
+        }
+
         friend istream & operator>>(istream & _is, const _String & _str);
 
         static const size_t String_Count();
