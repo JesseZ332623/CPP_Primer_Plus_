@@ -35,7 +35,6 @@ using std::ofstream;
     当然，标准库中的字符串类，远比这个要复杂。。。。。
 */
 
-
 class _String
 {
     private:

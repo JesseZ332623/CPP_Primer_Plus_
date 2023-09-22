@@ -9,7 +9,9 @@ int main(int argc, char const *argv[])
 
     file.open("./test_2.txt");
 
-    file << str;
+    file << str << '\n';
+
+    file << sizeof(str);
 
     file.close();
     
