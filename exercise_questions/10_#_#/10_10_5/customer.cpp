@@ -74,7 +74,7 @@ void Customer_t::customer_pop()
 {
     for (int index = 0; index < TOTAL_CUSTOMER; ++index)
     {
-        Customer temp = customer.top();
+        _Customer temp = customer.top();
         customer.pop();
         total_payment += temp.payment;
     }

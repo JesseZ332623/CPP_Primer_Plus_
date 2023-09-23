@@ -14,13 +14,13 @@ typedef struct _Customer_
     std::string full_name;
     double payment;
 
-} Customer;
+} _Customer;
 
 class Customer_t
 {
     private:
-        Customer client[TOTAL_CUSTOMER];
-        std::stack<Customer> customer;
+        _Customer client[TOTAL_CUSTOMER];
+        std::stack<_Customer> customer;
         double total_payment;
 
     public:
