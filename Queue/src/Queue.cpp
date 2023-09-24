@@ -45,7 +45,7 @@ bool _Queue::enqueue(const Item & item)
 
     rear = add; /*将新创建的节点插入队尾*/
     
-    return false;
+    return true;
 }
 
 bool _Queue::dequeue(Item & item)
@@ -57,6 +57,8 @@ bool _Queue::dequeue(Item & item)
 
     /*将 头节点数据拷贝给用户传入的引用 item*/
     item = front->item;
+
+    --items;
 
     /*新建一个节点 temp，把当前头节点赋值给它*/
     Node *temp = front;

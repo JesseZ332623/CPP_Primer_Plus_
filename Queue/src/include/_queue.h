@@ -30,6 +30,7 @@
 #include "./customer.h"
 
 typedef Customer Item;
+typedef int Test_Item;
 
 class _Queue
 {
