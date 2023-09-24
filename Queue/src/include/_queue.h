@@ -29,6 +29,7 @@
 
 #include "./customer.h"
 
+/*每一个节点的数据类型 Item*/
 typedef Customer Item;
 typedef int Test_Item;
 
