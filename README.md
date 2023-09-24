@@ -343,9 +343,13 @@ class _String
 target：设计一个 _Queue 类，要求实现一些队列的基本操作，如下：
 
 1）判断队列是否为空     bool isempty() const;
+
 2）判断队列是否为满     bool isfull() const;
+
 3）入队                bool enqueue(const Item & item);
+
 4）出队                bool dequeue(Item & item);
+
 5）输出目前队列的节点数 int node_count() const;
 
 此外，为了满足两个对象相互复制，以及在没有内存泄漏的情况下删除整个队列，
