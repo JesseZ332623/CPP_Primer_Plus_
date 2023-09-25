@@ -356,12 +356,15 @@ target：设计一个 _Queue 类，要求实现一些队列的基本操作，如
 _Queue 类的构建函数，析构函数，以及运算符重载函数如下：
 
 private:
-_1）_Queue(const _Queue & q) : max_size(0);
+
+(1) _Queue(const Queue & q) : max_size(0);
 
 (2) _Queue & operator=(const Queue & q) { return *this; }
 
 public:
+
 _Queue(int size = MAX_SIZE);
+
 ~_Queue();
 
 ```C++
