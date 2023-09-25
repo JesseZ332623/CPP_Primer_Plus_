@@ -56,7 +56,6 @@ int main(int argc, char const *argv[])
     */
     printf("%x %x %x\n", *(a + 1), *(ptr_1 - 1), *ptr_2);
 #endif
-
-    
-    return 0;
+   
+    return EXIT_SUCCESS;
 }

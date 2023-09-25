@@ -35,6 +35,18 @@ using std::ofstream;
     当然，标准库中的字符串类，远比这个要复杂。。。。。
 */
 
+/*
+    12_10_2 给 _String 类增加一些新功能：
+
+    1）重载 + 运算符，用于合并字符串
+
+    2）提供一个 string_low() 函数，将字符串所有字母函数转换成小写
+
+    3）提供一个 string_upper() 函数，将字符串所有字母函数转换成大写
+
+    4）提供一个 search() 函数，传入一个字符，返回这个字符在字符串中出现的次数
+*/
+
 class _String
 {
     private:
@@ -77,10 +89,16 @@ class _String
         char & operator[](int index);
         const char & operator[](int index) const;
 
+        /*合并字符串*/
+        _String & operator+=(const _String & _string);
+        _String & operator+(const _String & _str_2);
+
         /*字符串的比较*/
         friend bool operator>(const _String & _str_1, const _String & _str_2);
         friend bool operator<(const _String & _str_1, const _String & _str_2);
         friend bool operator==(const _String & _str_1, const _String & _str_2);
+
+        
 
         friend ostream & operator<<(ostream & _os, const _String & _str);
         friend ofstream & operator<<(ofstream & _fs, const _String & _str)

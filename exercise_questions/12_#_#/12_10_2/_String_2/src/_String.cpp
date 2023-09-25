@@ -88,6 +88,24 @@ const char & _String::operator[](int index) const
     return str[index];
 }
 
+_String & _String::operator+=(const _String & _string)
+{
+    if (this == &_string) { return *this; }
+
+    if (_string.str[0] = '\0') { return *this; }
+
+    std::strcat(this->str, _string.str);
+
+    return *this;
+}
+
+_String & _String::operator+(const _String & _str_2)
+{
+    *this += _str_2;
+
+    return *this;
+}
+
 /*
     这里有必要复习一下 strcmp 函数，
     它逐个比较两个字符串 a b中的每一个字符，返回一个 int 类型，有如下三种情况：
@@ -109,6 +127,8 @@ bool operator==(const _String & _str_1, const _String & _str_2)
 {
     return (std::strcmp(_str_1.str, _str_2.str) == 0);
 }
+
+
 
 ostream & operator<<(ostream & _os, const _String & _str)
 {
