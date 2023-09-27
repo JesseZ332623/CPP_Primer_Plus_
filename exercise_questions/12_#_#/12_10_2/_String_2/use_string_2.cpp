@@ -2,14 +2,19 @@
 
 int main(int argc, char const *argv[])
 {
-    _String str_1 = "AA";
-    _String str_2 = "BB";
+    _String str_1 = "AAAAAAAAAAAAAAAAA";
+    _String str_2 = "bbbbbbbbbbbbb";
+    _String str_3 = "AhDGdfjgskjdglLLLL";
 
-    //_String s3;
-    str_1 += str_2;
+    std::cout << "The char L appear " << str_3.appear_times('\0') << " times..\n";
 
-    std::cout << str_1 << '\n';
-    std::cout << str_2 << '\n';
+    str_1.string_low();
+    str_2.string_upper();
+    str_3.string_low();
 
+    std::cout << str_1 << '\n'
+              << str_2 << '\n'
+              << str_3 << '\n';
     return 0;
+    
 }

@@ -40,6 +40,44 @@ _String::_String(_String & str_object)
     ++str_count;
 }
 
+/*将字符串全部转换成小写*/
+void _String::string_low()
+{
+    for (size_t index = 0; index < _length; ++index)
+    {
+        str[index] = std::tolower(str[index]);
+    }
+}
+
+/*将字符串全部转换成大写*/
+void _String::string_upper()
+{
+    for (size_t index = 0; index < _length; ++index)
+    {
+        str[index] = std::toupper(str[index]);
+    }
+}
+
+const size_t _String::appear_times(const char _ch) const
+{
+    if (!_ch)
+    {
+        throw "Enter ERROR.....\n";
+    }
+
+    size_t appears = 0;
+
+    for (size_t index = 0; index < _length; ++index)
+    {
+        if (this->str[index] == _ch)
+        {
+            ++appears;
+        }
+    }
+
+    return appears;
+}
+
 /*字符串的赋值操作 字符串类 赋值给 字符串类*/
 _String & _String::operator=(const _String & str_object)
 {
@@ -73,7 +111,7 @@ _String & _String::operator=(const char *_str)
 
     str = new char[_length + 1];
 
-    strcpy(str, _str);
+    std::strcpy(str, _str);
 
     return *this;
 }
@@ -88,22 +126,18 @@ const char & _String::operator[](int index) const
     return str[index];
 }
 
-_String & _String::operator+=(const _String & _string)
+_String _String::operator+(const _String & _str) const
 {
-    if (this == &_string) { return *this; }
+    _String cat_string;
 
-    if (_string.str[0] = '\0') { return *this; }
+    int cat_len = this->_length + _str._length;
 
-    std::strcat(this->str, _string.str);
+    cat_string.str = new char[cat_len];
 
-    return *this;
-}
+    std::strcat(cat_string.str, this->str);
+    std::strcat(cat_string.str, _str.str);
 
-_String & _String::operator+(const _String & _str_2)
-{
-    *this += _str_2;
-
-    return *this;
+    return cat_string; 
 }
 
 /*
@@ -127,8 +161,6 @@ bool operator==(const _String & _str_1, const _String & _str_2)
 {
     return (std::strcmp(_str_1.str, _str_2.str) == 0);
 }
-
-
 
 ostream & operator<<(ostream & _os, const _String & _str)
 {

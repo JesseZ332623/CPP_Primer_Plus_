@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cctype>
 
 using std::ostream, std::istream;
 using std::ofstream;
@@ -75,8 +76,17 @@ class _String
         _String();
         _String(const char *_str);
         _String(_String & str_object);
+        
+        /*将字符串全部转换成小写*/
+        void string_low();
+
+        /*将字符串全部转换成大写*/
+        void string_upper();
+
+        const size_t appear_times(const char _ch) const; 
 
         /*求字符串长度*/
+        //void set_length(size_t len) { _length = len; }
         const size_t length() { return _length; }
 
         /*字符串的赋值操作 字符串类 赋值给 字符串类*/
@@ -90,8 +100,7 @@ class _String
         const char & operator[](int index) const;
 
         /*合并字符串*/
-        _String & operator+=(const _String & _string);
-        _String & operator+(const _String & _str_2);
+        _String operator+(const _String & _str) const;
 
         /*字符串的比较*/
         friend bool operator>(const _String & _str_1, const _String & _str_2);
