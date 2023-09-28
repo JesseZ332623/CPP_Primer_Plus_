@@ -1,5 +1,4 @@
 #include "./include/_String.h"
-#include <cstring>
 
 /*将字符串类的数量初始化为 0*/
 int _String::str_count = 0;
@@ -126,18 +125,48 @@ const char & _String::operator[](int index) const
     return str[index];
 }
 
+/*合并字符串 传入一个 _String 对象*/
 _String _String::operator+(const _String & _str) const
 {
     _String cat_string;
 
-    int cat_len = this->_length + _str._length;
+    cat_string._length = this->_length + _str._length;
 
-    cat_string.str = new char[cat_len];
+    cat_string.str = new char[cat_string._length + 1];
 
-    std::strcat(cat_string.str, this->str);
+    std::strcpy(cat_string.str, this->str);
     std::strcat(cat_string.str, _str.str);
 
     return cat_string; 
+}
+
+/*合并字符串 传入一个 C 风格的字符串*/
+_String _String::operator+(const char * c_str) const
+{
+    _String cat_string;
+
+    cat_string._length = this->_length + std::strlen(c_str);
+
+    cat_string.str = new char[cat_string._length + 1];
+
+    std::strcpy(cat_string.str, this->str);
+    std::strcat(cat_string.str, c_str);
+
+    return cat_string;
+}
+
+_String operator+(const char *c_str, const _String _str)
+{
+    _String cat_string;
+
+    cat_string._length = _str._length + std::strlen(c_str);
+
+    cat_string.str = new char[cat_string._length + 1];
+
+    std::strcpy(cat_string.str, c_str);
+    std::strcat(cat_string.str, _str.str);
+
+    return cat_string;
 }
 
 /*

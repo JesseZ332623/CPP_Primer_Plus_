@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
+#include <cstring>
 
 using std::ostream, std::istream;
 using std::ofstream;
@@ -101,6 +102,9 @@ class _String
 
         /*合并字符串*/
         _String operator+(const _String & _str) const;
+        _String operator+(const char * c_str) const;
+
+        friend _String operator+(const char *c_str, const _String _str);
 
         /*字符串的比较*/
         friend bool operator>(const _String & _str_1, const _String & _str_2);
