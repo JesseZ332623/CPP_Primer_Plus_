@@ -1,12 +1,6 @@
 # CPP_Primer_Plus_
 
-Date: 2023-08-20
-
-自己的C++练习 .
-
-Date: 2023-09-07
-
-提交至github，结果把另外一个分支提交上去了，折腾了一下算是搞定了。。。。
+记录了我学习《C++ Primer Plus》的详细过程，基本上每天都更新。
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -397,6 +391,112 @@ class _Queue
 };
 ```
 
-_Queue 类 的实现以及用例参考  .\Queue\
+_Queue 类 的实现以及用例请见目录  .\Queue\
 
 --------------------------------------------------------------------------------------------------------------------------------------------
+
+## Date:2023.9.28 练习 12_10_2： 一个升级版的 _String 类
+
+对原有的 _String 类（./String_Class）进行升级，增加了如下功能：
+
+1）重载 + 运算符，用于合并字符串
+
+2）提供一个 string_low() 函数，将字符串所有字母函数转换成小写
+
+3）提供一个 string_upper() 函数，将字符串所有字母函数转换成大写
+
+4）提供一个 appear_times() 函数，传入一个字符，返回这个字符在字符串中出现的次数
+
+目前升级后的 _String 类如下所示：
+
+```C++
+class _String
+{
+    private:
+        char *str;          /*字符串本体*/
+        size_t _length;     /*字符串长度*/
+
+        /*当前字符串类的数量*/
+        static int str_count;
+
+        /*用户可以输入的字符串最大长度*/
+        static const int CIN_LIMIT = 80;        
+
+    public:
+        /*
+            _String 类的构建函数，考虑三种情况：
+            1.默认构建函数
+            2.传入字符串的构建函数
+            3.传入字符串类的构建函数
+
+            构建函数们要做以下四件事：
+            1.获取字符串长度
+            2.使用 new 关键字在堆空间分配内存
+            3.将传入的字符串拷贝或者初始化为 '\0'
+            4.自增字符串数量
+        */
+        _String();
+        _String(const char *_str);
+        _String(_String & str_object);
+        
+        /*将字符串全部转换成小写*/
+        void string_low();
+
+        /*将字符串全部转换成大写*/
+        void string_upper();
+
+        const size_t appear_times(const char _ch) const; 
+
+        /*求字符串长度*/
+        //void set_length(size_t len) { _length = len; }
+        const size_t length() { return _length; }
+
+        /*字符串的赋值操作 字符串类 赋值给 字符串类*/
+        _String & operator=(const _String & str_object);
+
+        /*字符串的赋值操作 字符串 赋值给 字符串类*/
+        _String & operator=(const char *_str);
+
+        /*单个字符查找*/
+        char & operator[](int index);
+        const char & operator[](int index) const;
+
+        /*合并字符串*/
+        _String operator+(const _String & _str) const;
+        _String operator+(const char * c_str) const;
+
+        friend _String operator+(const char *c_str, const _String _str);
+
+        /*字符串的比较*/
+        friend bool operator>(const _String & _str_1, const _String & _str_2);
+        friend bool operator<(const _String & _str_1, const _String & _str_2);
+        friend bool operator==(const _String & _str_1, const _String & _str_2);
+
+        
+
+        friend ostream & operator<<(ostream & _os, const _String & _str);
+        friend ofstream & operator<<(ofstream & _fs, const _String & _str)
+        {
+            _fs << _str.str;
+
+            return _fs;
+        }
+
+        friend istream & operator>>(istream & _is, const _String & _str);
+
+        static const size_t String_Count();
+
+        ~_String();
+};
+```
+
+对于这个类的测试用例请见目录 exercise_questions\12_#_#\12_10_2\_String_2\pel2_2.cpp
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Latest update: 2023.09.28
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Licence
+
+[MIT LICENCE](https://opensource.org/license/mit/)
