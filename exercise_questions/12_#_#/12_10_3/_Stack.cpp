@@ -57,8 +57,8 @@ bool _Stack::pop(Item & item)
 {
     if (top > 0)
     {
-        item = p_items[top--];
-        ++stack_size;
+        item = p_items[--top];
+        --stack_size;
 
         return true;
     }
