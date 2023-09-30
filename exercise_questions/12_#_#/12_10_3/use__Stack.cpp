@@ -8,15 +8,16 @@ int main(int argc, char const *argv[])
     std::ofstream file("skt_1_dat.txt");
 
     _Stack stk_1(10);
-    _Stack skt_2;
+    _Stack skt_2(5);
     Item _dat[10] = {0};
     
     for (int index = 0; index < 10; ++index)
     {
         stk_1.push(rand() % 15 + 1);
+        skt_2.push(rand() % 25 + 1);
     }
 
-    skt_2 = stk_1;
+    stk_1 = skt_2;
 
     std::cout << "stk_1 contence: \n";
     std::cout << stk_1;

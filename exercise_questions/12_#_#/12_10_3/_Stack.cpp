@@ -1,6 +1,6 @@
 #include "./_Stack.h"
 
-_Stack::_Stack(size_t n)
+_Stack::_Stack(size_t n) : MAX_SIZE(n)
 {
     if (n > MAX_SIZE) { n = MAX_SIZE; }
 

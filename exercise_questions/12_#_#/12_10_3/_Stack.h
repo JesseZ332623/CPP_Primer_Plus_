@@ -21,13 +21,13 @@ using std::cout, std::ostream, std::ofstream;
 class _Stack
 {
     private:
-        enum { MAX_SIZE = 10 }; /*一个栈默认的最大元素数*/
+        const int MAX_SIZE = 10;            /*一个栈默认的最大元素数*/
         Item *p_items;                  /*指向了一个栈的指针*/
         int stack_size;                 /*当前栈的元素数*/
         int top;                        /*栈顶元素的索引值*/
 
     public:
-        _Stack(size_t n = MAX_SIZE);           /*构造函数 0： 创建栈并设置最大元素数*/
+        _Stack(size_t n = 10);           /*构造函数 0： 创建栈并设置最大元素数*/
         _Stack(const _Stack & st);          /*构造函数 1： 用于类与类之间的拷贝*/
 
         bool isempty() const;
