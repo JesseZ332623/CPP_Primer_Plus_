@@ -47,8 +47,6 @@ class Rated_Player : public Table_Tennis_Player
 
         /*重设 顾客排名*/
         void Reset_Rating(unsigned int rate) { rating = rate; }
-
-
 };
 
 #endif

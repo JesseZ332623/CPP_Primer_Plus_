@@ -3,6 +3,7 @@
 
 using std::cout, std::endl;
 
+#if true
 void show_player_info(Table_Tennis_Player & player)
 {
     player.Name();
@@ -15,7 +16,9 @@ void show_player_info(Table_Tennis_Player & player)
         cout << ": has't table" << endl;
     }
 }
+#endif
 
+#if true
 void show_player_info(Rated_Player & rate_player)
 {
     rate_player.Name();
@@ -30,6 +33,7 @@ void show_player_info(Rated_Player & rate_player)
         cout << "Rating: " << rate_player.Get_Rating() << endl;
     }
 }
+#endif
 
 int main(int argc, char const *argv[])
 {
