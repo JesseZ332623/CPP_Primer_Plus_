@@ -29,6 +29,7 @@ class Table_Tennis_Player
         void Reset_Table(bool has) { has_table = has; }
 };
 
+/*Table_Tennis_Player 类的派生类 Rated_Player*/
 class Rated_Player : public Table_Tennis_Player
 {
     private:
