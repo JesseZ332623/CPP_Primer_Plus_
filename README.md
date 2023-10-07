@@ -512,7 +512,8 @@ class _String
 |-------|----|----|
 |class Derives : public Base|公有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中的<br>访问权限不变，依旧是 Public 和 Protected|
 |class Derives : protecte Base|受保护的继承|基类中的 Public 访问权限的成员在派生类中变为 Protected|
-|class Derives : protecte Base|私有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中的<br>访问权限都变为 Privite|
+|class Derives : protecte Base|私有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中
+的<br>访问权限都变为 Privite|
 
 ### 设计一个简单的父子类
 
