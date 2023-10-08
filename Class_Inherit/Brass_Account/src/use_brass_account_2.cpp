@@ -1,7 +1,5 @@
 #include <iostream>
-#include <string>
-#include <cstring>
-#include "./brass_account.h"
+#include "./include/brass_account.h"
 
 const int CLIENTS = 2;
 
@@ -68,6 +66,7 @@ int main(int argc, char const *argv[])
         cout << endl;
 
         delete p_client[index];
+        p_client[index] = nullptr;
     }
     
     cout << "Done.";

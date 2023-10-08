@@ -1,10 +1,6 @@
-#include "./brass_account.h"
+#include "./include/brass_account.h"
 #include <windows.h>
-
-void p_line()
-{
-    std::cout << "------------------------------" << std::endl;
-}
+//#include <type_traits>
 
 int main(int argc, char const *argv[])
 {
@@ -15,6 +11,7 @@ int main(int argc, char const *argv[])
 
     Brass_Account piggy("Pappa Pig", "331081200403455687", 4000.00);
     Brass_Plus _plus_client_01("Jesse_EC", "331081200403044836", 3000.00);
+    std::ofstream info_file("client_info.txt");
 
     piggy.View_Account();
     p_line();
@@ -38,6 +35,10 @@ int main(int argc, char const *argv[])
     _plus_client_01.With_Draw(4200);
     cout << "piggy's balance: $" << _plus_client_01.Balence() << endl;
     p_line();
+
+    info_file << piggy;
+
+    info_file << _plus_client_01;
 
     return 0;
 }

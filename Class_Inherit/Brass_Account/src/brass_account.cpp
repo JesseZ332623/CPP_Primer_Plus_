@@ -1,4 +1,4 @@
-#include "./brass_account.h"
+#include "./include/brass_account.h"
 
 using std::cout;
 using std::endl;
@@ -90,6 +90,20 @@ void Brass_Account::View_Account() const
     restore(init_state, prec);
 }
 
+std::ostream & operator<<(std::ostream & _os, const Brass_Account & _bs)
+{
+    format init_state = set_format();
+    precis prec = cout.precision(2);
+
+    _os << "Client: " << _bs.full_name << endl;
+    _os << "Account Name: " << _bs.account_no << endl;
+    _os << "Balance: $" << _bs.balence << endl;
+    
+    restore(init_state, prec);
+    
+    return _os;
+}
+
 Brass_Plus::Brass_Plus(const string &fn, const string acc,
                        double bal, double ml, double rate) : Brass_Account(fn, acc, bal)
 {
@@ -159,7 +173,30 @@ void Brass_Plus::View_Account() const
     cout << "Max Loan: $" << max_loan << endl;
     cout << "Owed to bank: $" << owns_bank << endl;
     cout.precision(3);
-    cout << "Loan rate " << rate * 100 << '%' << endl; 
+    cout << "Loan rate: " << rate * 100 << '%' << endl; 
 
     restore(init_state, prec);
+}
+
+std::ostream & operator<<(std::ostream & _os, const Brass_Plus & _bp)
+{
+    format init_state = set_format();
+    precis prec = cout.precision(2);
+
+    _os << (Brass_Account)_bp;
+
+    _os << "Max Loan: $" << _bp.max_loan << endl;
+    _os << "Owed to bank: $" << _bp.owns_bank << endl;
+
+    cout.precision(3);
+    _os << "Loan rate: " << _bp.rate * 100 << '%' << endl;
+
+    restore(init_state, prec);
+
+    return _os;
+}
+
+void p_line()
+{
+    std::cout << "------------------------------" << std::endl;
 }

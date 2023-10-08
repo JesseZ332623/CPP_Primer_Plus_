@@ -1,0 +1,9 @@
+Client: Pappa Pig
+Account Name: 331081200403455687
+Balance: $4000
+Client: Jesse_EC
+Account Name: 331081200403044836
+Balance: $0
+Max Loan: $500
+Owed to bank: $222.25
+Loan rate: 11.125%

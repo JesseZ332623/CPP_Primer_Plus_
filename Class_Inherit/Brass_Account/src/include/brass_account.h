@@ -43,7 +43,7 @@
 
 #include <string>
 #include <iostream>
-//#include <fstream>
+#include <fstream>
 
 using std::string;
 
@@ -68,6 +68,9 @@ class Brass_Account
         virtual void With_Draw(double amt);
         /*显示账户信息*/
         virtual void View_Account() const;
+
+        friend std::ostream & operator<<(std::ostream & _os, const Brass_Account & _bs);
+
         virtual ~Brass_Account() {};
 };
 
@@ -99,7 +102,11 @@ class Brass_Plus : public Brass_Account
         /*显示账户信息*/
         virtual void View_Account() const;
 
+        friend std::ostream & operator<<(std::ostream & _os, const Brass_Plus & _bp);
+
         virtual ~Brass_Plus() { }       
 };
+
+void p_line();
 
 #endif
