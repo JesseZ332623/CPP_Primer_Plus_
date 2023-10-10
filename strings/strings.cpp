@@ -28,6 +28,11 @@ int replace(char *str, char ch_1, char ch_2)
 
 int main(int argc, char const *argv[])
 {
-    
+    char str_1[] = {"E:/CPP_Primire_Plus/strings"};    
+    char *s_ptr = (char *)std::memmove(s_ptr, str_1, std::strlen(str_1) + 1);
+
+    std::cout << s_ptr << std::endl;
+    std::cout << str_1 << '\n';
+
     return EXIT_SUCCESS;
 }
