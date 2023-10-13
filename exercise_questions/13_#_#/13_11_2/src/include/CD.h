@@ -5,7 +5,7 @@
 #include <iostream>
 
 const int PERFORMERS_LENGTH = 50;
-const int LABLE_LENGTH = 20;
+const int LABLE_LENGTH = 50;
 
 /*
     基类 CD 的私有成员为：
