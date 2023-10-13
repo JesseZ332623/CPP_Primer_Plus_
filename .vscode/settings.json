@@ -62,7 +62,8 @@
         "stop_token": "cpp",
         "condition_variable": "cpp",
         "ratio": "cpp",
-        "semaphore": "cpp"
+        "semaphore": "cpp",
+        "optional": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
