@@ -45,6 +45,8 @@ Port & Port::operator=(const Port & port)
 {
     if (this == &port) { return *this; }
 
+    delete[] brand;
+
     brand = new char [std::strlen(port.brand) + 1];
     
     std::strcpy(brand, port.brand);
@@ -85,7 +87,7 @@ void Port::Show() const
 
 ostream & operator<<(ostream & _os, const Port & port)
 {
-    _os << port.brand << ", " << port.style << ", " << port.Bottom_Count() << endl;
+    _os << port.brand << ", " << port.style << ", " << port.Bottom_Count();
 
     return _os;
 }
