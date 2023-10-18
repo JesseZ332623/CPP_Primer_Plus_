@@ -18,7 +18,6 @@ void print_list()
     }
 }
 
-
 int main(int argc, char const *argv[])
 {
 #if true
