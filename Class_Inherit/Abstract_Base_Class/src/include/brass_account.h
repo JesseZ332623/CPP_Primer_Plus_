@@ -63,9 +63,9 @@ using std::string;
 class Account
 {
     private:
-        string full_name;
-        string account_no;
-        double balence;
+        string full_name;   /*账户名*/
+        string account_no;  /*账号*/
+        double balence;     /*余额*/
 
     /*
         新访问限定符 protected：
@@ -80,29 +80,34 @@ class Account
             std::ios_base::fmtflags flag;
             std::streamsize pr;
         };
+        /*
+            由于派生类无法访问抽象基类的私有数据，
+            因此 ABC 得开放一些接口来让派生类访问私有数据
+        */
         /*返回账户姓名*/
         const std::string & Full_Name() const { return full_name; }
 
         /*返回账号*/
-        string Account_No() const { return account_no; }
+        const string Account_No() const { return account_no; }
 
         /*设置格式*/
         Formatting Set_Format() const;
 
         /*重设格式*/
-        void Restore(Formatting & format) const;
+        void Restore(Formatting & _format) const;
 
     public:
         /*抽象基类的构建函数*/
-        Account(const string & _f = "NULL_Body", const string & _account = "No Account", double _bal = 0.0000);
+        Account(const string & _f = "NULL_Body", 
+                const string & _account = "No Account", double _bal = 0.0000);
 
-        /*取钱*/
+        /*存钱*/
         void Deposit(double _amount);
 
         /*返回余额*/
         const double Balence() const { return balence; }
 
-        /*存钱*/
+        /*取钱*/
         virtual void With_Draw(double _amount) = 0;
 
         /*显示账户信息*/
@@ -116,10 +121,10 @@ class Account
 class Brass_Account : public Account
 {
     public:
-        Brass_Account(const string & _f = "NULL_Body", 
-                      const string & _account = "No_Account", double _bal = 0.0000) : Account(_f, _account, _bal) {}
+        Brass_Account(const string & _f = "NULL_Body", const string & _account = "No_Account", 
+                      double _bal = 0.0000) : Account(_f, _account, _bal) {}
 
-        /*存钱*/
+        /*取钱*/
         virtual void With_Draw(double _amount);
 
         /*显示账户信息*/
@@ -137,7 +142,7 @@ class Brass_Plus : public Account
 
     public:
         /*初始化用户信息，欠款额度，利率等数据*/
-        Brass_Plus(const string & fn = "NULL_Body", const string acc = "NULL_NO", 
+        Brass_Plus(const string & fn = "NULL_Body", const string & acc = "NULL_NO", 
                     double bal = 0.0000, double ml = 500.00, double rate = 0.11125);
         Brass_Plus(const Brass_Account & ba, double ml = 500.00, double rate = 0.11125);
 
@@ -151,12 +156,12 @@ class Brass_Plus : public Account
         void Rest_Owes() { owns_bank = 0; }
         
         /*取钱*/
-        virtual void With_Draw(double amt);
+        virtual void With_Draw(double _amount);
 
         /*显示账户信息*/
         virtual void View_Account() const;
 
-        friend std::ostream & operator<<(std::ostream & _os, const Brass_Plus & _bp);
+        //friend std::ostream & operator<<(std::ostream & _os, const Brass_Plus & _bp);
 
         virtual ~Brass_Plus() {}       
 };
