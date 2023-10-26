@@ -63,7 +63,8 @@
         "condition_variable": "cpp",
         "ratio": "cpp",
         "semaphore": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled",
     "cmake.configureOnOpen": true
