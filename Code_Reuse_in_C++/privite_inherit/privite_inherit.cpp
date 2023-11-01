@@ -41,6 +41,10 @@ class Student : private std::string, private std::valarray<double>
         /*将 std::valarray<double> 类定义一个别名 Array_DB*/
         typedef std::valarray<double> Array_DB;
 
+        /*可以使用 using 定义访问权限*/
+        using std::valarray<double>::sum;
+        using std::valarray<double>::size;
+
         /*输出成绩数组*/
         std::ostream & array_output(std::ostream & _os) const;
 
@@ -85,6 +89,11 @@ class Student : private std::string, private std::valarray<double>
 };
 
 #endif
+
+double Student::Average() const
+{
+    return sum() / size();
+}
 
 std::ostream & operator<<(std::ostream & _os, Student & _stu)
 {
