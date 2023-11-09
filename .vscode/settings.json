@@ -67,5 +67,6 @@
         "valarray": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled",
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "git.ignoreLimitWarning": true
 }
