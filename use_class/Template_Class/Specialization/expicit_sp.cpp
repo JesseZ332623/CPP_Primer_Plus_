@@ -14,6 +14,7 @@ int main(int argc, char const *argv[])
     printf("%d", *(_s_arr_2.end() - 1));
 
     //printf("%s", (_s_arr == _s_arr_2) ? "true" : "false");
+
     
     return EXIT_SUCCESS;
 }
