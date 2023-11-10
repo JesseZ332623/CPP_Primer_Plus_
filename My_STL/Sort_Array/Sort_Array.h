@@ -3,29 +3,6 @@
  * @author JesseZ332623
  * @date 2023.11.10
 */
-/**
- * 上面讲了多参数的模板类，先来来讲一下类的显式实例化（或者叫特化 explicit specialization）
- * 
- * 显示实例化 是指特点类型（用于替换模板中的泛型）的定义。
- * 有些时候，可能需要在为特殊类型实例化时，对模板进行修改，使其行为不同。
- * 
- * 例如，假设已经为用于排序后数组的类（元素在加入时被排序）定义了一个模板：
- * 
- *                  template<typename Type, size_t _size>
- *                  class Sorted_Array {....};
- * 
- * 此外，这个类会设计一些比较函数（重载 '==' '>' '<' 等符号）对数值进行比较，
- * Type 对于数字（如 int, long int, double 等数字类型），这管用，哪怕 Type 是一个对象，只要定义了相应的符号重载，也管用。
- * 
- * 但是对于 C 风格字符串（const char *）类型，
- * 单纯的替换类型可能会造成一些未知的错误，所以需要对 C 风格的字符串类型做一个显式实例化，如下所示：
- * 
- *                  template<>
- *                  class Sorted_Array<const char *,  size_t _size> {......};
- * 
- * 当具体化模板和通用模板都与实例化请求匹配时，编译器将使用具体化版本。
-*/
-
 #ifndef _SORT_ARRAY_H_
 #define _SORT_ARRAY_H_
 
@@ -373,19 +350,5 @@ _Array_Type & Sorted_Array<_Array_Type, _s>::operator[](size_t index)
 
     return array[index];
 }
-
-/**
- * 为了能处理 const char * 类型的数据，我们需要给几个模板类方法做显示实例化，
- * 需要显示实例化的方法有：
- * 
- *      bool operator==(const Sorted_Array & _sort_arr) const;
- * 
- *      bool operator>(const Sorted_Array & _sort_arr) const;
- * 
- *      bool operator<(const Sorted_Array & _sort_arr) const;
- *      
- * 
- *      他们需要调用 std::strcmp() 函数来完成字符串的比较。
-*/
 
 #endif //_SORT_ARRAY_H_
