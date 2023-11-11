@@ -35,6 +35,8 @@ class Abstr_Emp
 
         virtual void Set_All();
 
+        friend std::ostream & operator<<(std::ostream & _os, const Abstr_Emp & _emp);
+
         virtual ~Abstr_Emp() = 0;
 };
 
@@ -73,6 +75,8 @@ class Manager : virtual public Abstr_Emp
         virtual void Show_All() const;
 
         virtual void Set_All();
+
+        ~Manager() {}
 };
 
 class Fink : virtual public Abstr_Emp
@@ -81,11 +85,12 @@ class Fink : virtual public Abstr_Emp
         using string = std::string;
 
     private:
-        const string reports_to;
+        string reports_to;
 
     protected:
         const string Reports_To() const { return reports_to; }
-        const string & Reports_To() { return reports_to; }
+
+        string & Reports_To() { return reports_to; }
 
     public:
         Fink() : Abstr_Emp() {}
@@ -100,29 +105,33 @@ class Fink : virtual public Abstr_Emp
         virtual void Show_All() const;
 
         virtual void Set_All();
+
+        ~Fink() {}
 };
 
-class Heigh_Fink : public Manager, public Fink
+class Height_Fink : public Manager, public Fink
 {
     public:
         using string = std::string;
 
-        Heigh_Fink() : Manager(), Fink() {}
+        Height_Fink() : Manager(), Fink() {}
 
-        Heigh_Fink(const string & _f, const string & _l, const string & _j,
+        Height_Fink(const string & _f, const string & _l, const string & _j,
                    int _ico, string rp_t) : Manager(_f, _l, _j, _ico), Fink(_f, _l, _j, rp_t) {}
 
-        Heigh_Fink(const Abstr_Emp & _e, const string & rp_t, int _ico) : Manager(_e, _ico), Fink(_e, rp_t) {}
+        Height_Fink(const Abstr_Emp & _e, const string & rp_t, int _ico) : Manager(_e, _ico), Fink(_e, rp_t) {}
 
-        Heigh_Fink(const Manager & _manager, const string & rp_t) : Manager(_manager), Fink(_manager, rp_t) {}
+        Height_Fink(const Manager & _manager, const string & rp_t) : Abstr_Emp(_manager), Manager(_manager), Fink(_manager, rp_t) {}
 
-        Heigh_Fink(const Fink & _fink, int _ico) : Fink(_fink), Manager(_fink, _ico) {}
+        Height_Fink(const Fink & _fink, int _ico) : Abstr_Emp(_fink), Fink(_fink), Manager(_fink, _ico) {}
 
-        Heigh_Fink(const Heigh_Fink & _h_fink);
+        Height_Fink(const Height_Fink & _h_fink) : Fink(_h_fink), Manager(_h_fink) {}
 
         virtual void Show_All() const;
 
         virtual void Set_All();
+
+        ~Height_Fink() {}
 };
 
 /*
