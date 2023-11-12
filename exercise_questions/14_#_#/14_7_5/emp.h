@@ -123,7 +123,7 @@ class Height_Fink : public Manager, public Fink
 
         Height_Fink(const Manager & _manager, const string & rp_t) : Abstr_Emp(_manager), Manager(_manager), Fink(_manager, rp_t) {}
 
-        Height_Fink(const Fink & _fink, int _ico) : Abstr_Emp(_fink), Fink(_fink), Manager(_fink, _ico) {}
+        Height_Fink(const Fink & _fink, int _ico) : Abstr_Emp(_fink), Manager(_fink, _ico) {}
 
         Height_Fink(const Height_Fink & _h_fink) : Fink(_h_fink), Manager(_h_fink) {}
 
