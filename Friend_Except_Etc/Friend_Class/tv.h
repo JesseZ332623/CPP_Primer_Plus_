@@ -80,7 +80,7 @@ class Television
 class Remote
 {
     private:
-        int mode;       /*操控 TV  或 DVD*/
+        int mode;       /*操控 TV 或 DVD*/
 
     public:
         Remote(int _mode = Television::TV) : mode(_mode) {}
@@ -95,7 +95,7 @@ class Remote
 
         void channal_down(Television & _tv) { return _tv.channal_down(); }
 
-        void set_channal(Television & _tv, int _channal) { _tv.channel = _channal; }
+        bool set_channal(Television & _tv, int _channal);
 
         void set_mode(Television & _tv) { return _tv.set_mode(); }
 

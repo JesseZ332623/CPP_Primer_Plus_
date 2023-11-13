@@ -43,3 +43,13 @@ void Television::display_settings() const
         cout << "Input: " << ((input == TV) ? "TV" : "DVD") << '\n';
     }
 }
+
+bool Remote::set_channal(Television & _tv, int _channal)
+{
+    if (_channal <= 0) { return false; }
+    if (_channal > _tv.max_channel) { return false; }
+
+    _tv.channel = _channal;
+
+    return true;
+}
