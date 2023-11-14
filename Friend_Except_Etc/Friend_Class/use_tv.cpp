@@ -8,6 +8,7 @@ void remote_function();
 void remote_function()
 {
     using std::cout;
+    cout << "The Remote Function Table: " << '\n';
     cout << "-------------------------------------" << '\n';
     cout << "1.ON / OFF" << '\n';
     cout << "2.Channal UP" << "\t" << "3.Channal Down" << '\n';
