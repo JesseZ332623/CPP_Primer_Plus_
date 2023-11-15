@@ -18,10 +18,12 @@ int main(int argc, char const *argv[])
         std::getline(std::cin, name);
         _cs.enqueue(name);
 
-        while (std::cin.get() != '\n') { continue; }
+        //while (std::cin.get() != '\n') { continue; }
     }
 
     printf("Now, The Queue is full, The Processing begins!\n");
+
+#if true
 
     while (!_cs.isempty())
     {
@@ -29,6 +31,8 @@ int main(int argc, char const *argv[])
         printf("Now Processing: %s\n", name.c_str());
         Sleep(600);
     }
+
+#endif
     
     return EXIT_SUCCESS;
 }
