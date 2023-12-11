@@ -68,5 +68,6 @@
     },
     "C_Cpp.errorSquiggles": "enabled",
     "cmake.configureOnOpen": true,
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "Codegeex.Comment.LanguagePreference": "中文"
 }
