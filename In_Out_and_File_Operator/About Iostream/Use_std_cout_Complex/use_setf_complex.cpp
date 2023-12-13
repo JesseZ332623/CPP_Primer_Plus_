@@ -146,10 +146,9 @@ void setf_ver_2()
     在使用 cout 输出数据前，先设置控制符，如：
 
     先设置 16 进制，大写基数前缀 或 指数 E
-    std::cout << std::hex << std::uppercase;
-    std::cout << 114514;
+    std::cout << std::hex << std::uppercase << 114514;
 
-    cout 重载 << 符号，以适配这种语法，函数原型如下：
+    cout 重载了 << 符号，以适配这种语法，函数原型如下：
 
     std::ostream &std::ostream::operator<<(std::ios_base &(*__pf)(std::ios_base &))
 
