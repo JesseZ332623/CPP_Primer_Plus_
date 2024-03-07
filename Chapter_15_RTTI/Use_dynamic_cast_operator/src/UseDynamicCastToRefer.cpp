@@ -19,7 +19,8 @@ int main(int argc, char const *argv[])
     }
     catch (const std::bad_cast & failedTypeCast)
     {
-        std::cout << failedTypeCast.what() << '\n';
+        std::cout << "Can't Convert Type (Grand &) -> (Superb &) "
+                  << failedTypeCast.what() << '\n';
     }
 
     return EXIT_SUCCESS;
