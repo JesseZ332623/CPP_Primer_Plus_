@@ -4,9 +4,9 @@
 
 记录了我学习《C++ Primer Plus》的详细过程，基本上每天都更新。
 
-## Date: 2023.11.21
+## Date: 2024.3.7
 
-## 当前学习到 第 15 章 《友元异常和其他》（Friend_Except_Etc 文件）栈解退部分。
+## 当前学习到 第 15 章 《友元异常和其他》类型转换运算符 部分
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -516,8 +516,7 @@ class _String
 |-------|----|----|
 |class Derives : public Base|公有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中的<br>访问权限不变，依旧是 Public 和 Protected|
 |class Derives : protecte Base|受保护的继承|基类中的 Public 访问权限的成员在派生类中变为 Protected|
-|class Derives : protecte Base|私有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中
-的<br>访问权限都变为 Privite|
+|class Derives : protecte Base|私有继承|基类中的 Public 和 Protected 访问权限的成员在派生类中的<br>访问权限都变为 Privite|
 
 ### 设计一个简单的父子类
 
