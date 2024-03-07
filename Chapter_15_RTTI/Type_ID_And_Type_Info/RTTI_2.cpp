@@ -8,12 +8,26 @@ int main(int argc, char const *argv[])
 
     Grand * pg = nullptr;
     Superb * ps = nullptr;
+    Magnificent *pd = nullptr;
 
     for (int index = 0; index < 5; ++index)
     {
         pg = getOne();
         TypeInfo typeInfo(typeid(*pg).name(), typeid(*pg).hash_code());
         std::cout << "Now Processing " << typeInfo << ". \n";
+
+        if ((typeid(*pg) == typeid(Grand)))
+        {
+            pg->Speak();
+        }
+
+        if ((ps = dynamic_cast<Superb *>(pg)))
+        {
+            ps->Speak();
+            ps->Say();
+        }
+
+        puts("---------------------------------------------------------");
     }
 
     return EXIT_SUCCESS;
