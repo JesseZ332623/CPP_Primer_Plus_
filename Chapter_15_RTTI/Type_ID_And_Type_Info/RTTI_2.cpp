@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
 
     Grand * pg = nullptr;
     Superb * ps = nullptr;
-    Magnificent *pd = nullptr;
+    Magnificent * pd = nullptr;
 
     for (int index = 0; index < 5; ++index)
     {
@@ -28,7 +28,13 @@ int main(int argc, char const *argv[])
         }
 
         puts("---------------------------------------------------------");
+
+        delete pg;
     }
+
+    pg = nullptr;
+    ps = nullptr;
+    pd = nullptr;
 
     return EXIT_SUCCESS;
 }

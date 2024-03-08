@@ -84,6 +84,10 @@ Grand * getOne()
     return ptr;
 }
 
+/**
+ * mingw C++ 标准库实现中，type_info::name() 的返回字符串中，类型名前往往带有数字，
+ * 因此这个类的作用，就是封装一个去掉头部数字的类名和其哈希值。
+*/
 typedef struct __TypeInfo
 {
     private:
