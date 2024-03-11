@@ -22,9 +22,9 @@ int main(int argc, char const *argv[])
     readJsonFileIn2024 >> jsonDataIn2024;  
     readJsonFileIn2023 >> jsonDataIn2023;
 
-    for (const auto & month : jsonDataIn2024)
+    for (const auto & month : jsonDataIn2024.items())
     {
-        salaryIn2023[monthIndex] = std::stod(month.dump());
+        salaryIn2023[monthIndex] = month.value();
         ++monthIndex;
     }
 
@@ -52,7 +52,7 @@ int main(int argc, char const *argv[])
         cout << "Year = " << salesIn2024_t.getYear() << endl;
         cout << "Label = " << salesIn2024_t.getLabel() << endl;
 
-        for (int index = 0; index < Sales::MONTH; ++index)
+        for (int index = 0; index < Sales::MONTH + 8; ++index)
         {
             cout << salesIn2024_t[index] << ' ';
             if (index % 6 == 5) { cout << endl; }
