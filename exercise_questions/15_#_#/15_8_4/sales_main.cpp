@@ -7,7 +7,7 @@
 int main(int argc, char const *argv[])
 {
     system("cls");
-    using std::cout, std::cin, std::endl;
+    using std::cout, std::cerr, std::cin, std::endl;
     using json = nlohmann::json;
 
     std::ifstream readJsonFileIn2024("./Salary2024.json", std::ios_base::in);
@@ -52,7 +52,7 @@ int main(int argc, char const *argv[])
         cout << "Year = " << salesIn2024_t.getYear() << endl;
         cout << "Label = " << salesIn2024_t.getLabel() << endl;
 
-        for (int index = 0; index < Sales::MONTH + 8; ++index)
+        for (int index = 0; index < Sales::MONTH + 9; ++index)
         {
             cout << salesIn2024_t[index] << ' ';
             if (index % 6 == 5) { cout << endl; }
@@ -60,20 +60,23 @@ int main(int argc, char const *argv[])
 
         cout << "End of Try Block \n";
     }
-    catch (LabledSales::NBadIndex & nBedExcept)
+    catch (Sales::BadIndex & IndexExcept)
     {
-        if (typeid(nBedExcept) != typeid(LabledSales::NBadIndex))
+        std::cout << IndexExcept.what() << "Index = " << IndexExcept.getBedIndex() << endl;
+
+        try
         {
-            Sales::BadIndex * bedExcept = dynamic_cast<Sales::BadIndex *>(&nBedExcept);
-            cout << bedExcept->what() << " Index = " << bedExcept->getBedIndex() << endl;
+            LabledSales::NBadIndex & bIndexExcept = dynamic_cast<LabledSales::NBadIndex &>(IndexExcept);
+
+            std::cout << bIndexExcept.what(); 
+            std::cout << "Index = " << bIndexExcept.getBedIndex() << endl;
+            std::cout << "Company = " << bIndexExcept.getLableIndex();
         }
-        else
+        catch (const std::bad_cast & badCastExcept)
         {
-            cout << endl << nBedExcept.what();
-            cout << "Compnay = " << nBedExcept.getLableIndex() << ' ' << "Bed Index = " << nBedExcept.getBedIndex() << endl;
+            //cerr << badCastExcept.what() << '\n';
         }
     }
-
 
     readJsonFileIn2023.close();
     readJsonFileIn2024.close();
