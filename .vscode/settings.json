@@ -65,6 +65,7 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "set": "cpp"
     }
 }
