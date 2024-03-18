@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
+#include <list>
 #include <ctime>
 #include <iterator>
 
@@ -79,6 +80,7 @@ int main(int argc, char const *argv[])
     std::queue<double> numberQueue;
     std::vector<double> numberArray = { 1919810.114514 };
     double testData[] = { 234.25, 134.865, 1345.234, 1425.90 };
+    std::list<double> numberList = {67, 90, 45, 1000};
     
 
     pushRandomValue(numberQueue, 1000, 5, 12.08);
@@ -86,7 +88,22 @@ int main(int argc, char const *argv[])
 
     std::copy(testData, testData + 4, std::back_insert_iterator<std::vector<double>>(numberArray));
     std::for_each(numberArray.begin(), numberArray.end(), [](const double n) { std::cout << n << ' '; delayMilliseconds(60); });
-    //std::copy(testData, testData + 4, std::front_insert_iterator<std::queue<double>>(numberQueue));
+
+    puts(" ");
+
+    for (const double n : numberList)
+    {
+        std::cout << n << ' ';
+    }
+
+    puts(" ");
+
+    std::copy(testData, testData + 4, std::front_insert_iterator<std::list<double>>(numberList));
+
+    for (const double n : numberList)
+    {
+        std::cout << n << ' ';
+    }
 
     return EXIT_SUCCESS;
 }
