@@ -4,7 +4,7 @@
 #include <iterator>
 
 #include <MyLib/myLogDef.h>
-#include <MyLib/mySleep.h>
+#include <MyLib/myDelay.h>
 
 const int STRING_SIZE = 6;
 
@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
     set<string> setB(strArray_2, strArray_2 + STRING_SIZE);
 
     ostream_iterator<string, char> outIter(cout, " "); 
-    auto outputFunc = [](const string & s) { cout << s << ' '; mySleep(40); };
+    auto outputFunc = [](const string & s) { cout << s << ' '; delay(40); };
 
 #if USE_OSTREAM_ITERATOR_TO_OUTPUT
 
