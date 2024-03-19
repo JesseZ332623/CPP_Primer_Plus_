@@ -66,6 +66,7 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "queue": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "chrono": "cpp"
     }
 }
