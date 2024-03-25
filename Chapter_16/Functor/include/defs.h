@@ -14,7 +14,7 @@
 /**
  * @brief 往指定标准输出流发送 Container 容器的相关信息。
  * 
- * @tparam Container 容器
+ * @tparam Container STL 容器类型
  * 
  * @param __os          标准输出流的引用
  * @param __container   要发送给输出流的容器的引用
@@ -24,25 +24,25 @@
 template <typename Container>
 void showContainerToStream(std::ostream & __os, const Container & __container)
 {
-    std::cout << CORRECT << "List size = " << __container.size() << '\n' << ORIGINAL;
+    __os << CORRECT << "List size = " << __container.size() << '\n' << ORIGINAL;
     std::size_t containerIndex = 0L;
 
     std::for_each(__container.cbegin(), __container.cend(), 
-                  [& __os, &containerIndex](const auto & n) 
+                  [& __os, & containerIndex](const auto & n) 
                   { 
                         __os << n << ' '; 
                         delay(45); 
-                        if (containerIndex % 5 == 4) { std::cout << std::endl; }
+                        if (containerIndex % 5 == 4) { __os << std::endl; }
                         ++containerIndex;
                   }
                  );
-    std::cout << std::endl;
+    __os << std::endl;
 }
 
 /**
  * @brief 往一个容器里面插入随机的数据，通常是数字类型。
  * 
- * @tparam __Container      一个 STL 容器
+ * @tparam __Container      STL 容器类型
  * 
  * @param __container       一个 STL 容器的引用，但这个容器的元素最好是数字类型
  * @param __limit           随机数生成的返回不超过这个值
