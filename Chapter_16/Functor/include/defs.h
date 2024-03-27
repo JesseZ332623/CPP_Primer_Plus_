@@ -11,6 +11,9 @@
 #include <cstdlib>
 #include <ctime>
 
+using namespace MyDelay;
+using namespace MyLog;
+
 /**
  * @brief 往指定标准输出流发送 Container 容器的相关信息。
  * 
@@ -24,7 +27,9 @@
 template <typename Container>
 void showContainerToStream(std::ostream & __os, const Container & __container)
 {
-    __os << CORRECT << "List size = " << __container.size() << '\n' << ORIGINAL;
+
+    log(__os, NOTIFY, "This Container size = ", __container.size(), '\n');
+
     std::size_t containerIndex = 0L;
 
     std::for_each(__container.cbegin(), __container.cend(), 
