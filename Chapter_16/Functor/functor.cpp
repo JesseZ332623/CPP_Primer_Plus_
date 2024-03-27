@@ -42,11 +42,11 @@ int main(int argc, char const *argv[])
     */
     pushRandomValue(listB, 2500, 20, 18.7650);  
 
-    cout << NOTIFY << "The Original [List A]: " << "\n" << ORIGINAL;
+    log(cout, NOTIFY, "The Original [List A]:\n");
     showContainerToStream(cout, listA);
     printSplitLine(40, '-');
 
-    cout << NOTIFY << "The Original [List B]: " << "\n" << ORIGINAL;
+    log(cout, NOTIFY, "The Original [List B]:\n");
     showContainerToStream(cout, listB);
     printSplitLine(40, '-');
 
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
         需要传入一个二元谓词来指定排序的规则。
     */
     listB.sort([](const double a, const double b) -> bool { return a < b; });
-    cout << NOTIFY << "The [List B] After Sort: " << "\n" << ORIGINAL;
+    log(cout, NOTIFY, "The [List B] After Sort:\n");
     showContainerToStream(cout, listB);
     printSplitLine(40, '-');
 
@@ -66,11 +66,11 @@ int main(int argc, char const *argv[])
     */
     listB.remove_if(Limit<double>(550.00));
 
-    cout << NOTIFY << "The [List A] After remove some value bigger than 1000: " << "\n" << ORIGINAL;
+    log(cout, NOTIFY, "The [List A] After remove some value bigger than 1000:\n");
     showContainerToStream(cout, listA);
     printSplitLine(40, '-');
 
-    cout << NOTIFY << "The [List B] After remove some value bigger than 550.00: " << "\n" << ORIGINAL;
+    log(cout, NOTIFY, "The [List B] After remove some value bigger than 550:\n");
     showContainerToStream(cout, listB);
     printSplitLine(40, '-');
 
