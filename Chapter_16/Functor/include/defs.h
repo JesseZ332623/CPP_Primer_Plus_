@@ -11,6 +11,9 @@
 #include <cstdlib>
 #include <ctime>
 
+#define LINUX true
+#define WINDOWS_X86 false
+
 using namespace MyDelay;
 using namespace MyLog;
 
