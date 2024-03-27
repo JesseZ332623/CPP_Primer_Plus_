@@ -27,7 +27,13 @@
 
 int main(int argc, char const *argv[])
 {
+
+#if LINUX
+    system("clear");
+
+#elif WINDOWS_X86
     system("cls");
+#endif
 
 #if false
     std::vector<int> result = {1, 2, 3, 4, 5};

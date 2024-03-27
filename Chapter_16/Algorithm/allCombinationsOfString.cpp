@@ -3,6 +3,9 @@
 #include <string>
 #include <algorithm>
 
+#define LINUX true
+#define WINDOWS_X86 false
+
 /**
  * 程序的目标很简单，从标准输入中读取数据到字符串，
  * 然后通过 next_permutation() 算法计算该字符串所有排列组合的可能。
@@ -15,7 +18,13 @@ int main(int argc, char const *argv[])
 {
     using namespace MyLog;
 
+#if LINUX
+    system("clear");
+
+#elif WINDOWS_X86
     system("cls");
+
+#endif
 
     std::string letterString;
     std::size_t combinationAmount = 1L;

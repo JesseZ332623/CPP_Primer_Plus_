@@ -29,7 +29,12 @@ int main(int argc, char const *argv[])
 {
     using std::cout, std::list;
 
+#if LINUX
+    system("clear");
+
+#elif WINDOWS_X86
     system("cls");
+#endif
     std::srand(std::time(nullptr));
 
     Limit<int> limitA(1000); // 设定界限值为 1000
