@@ -27,7 +27,7 @@
 
 int main(int argc, char const *argv[])
 {
-    system("clear");
+    system("cls");
 
 #if false
     std::vector<int> result = {1, 2, 3, 4, 5};
