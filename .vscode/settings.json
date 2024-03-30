@@ -67,6 +67,7 @@
         "valarray": "cpp",
         "queue": "cpp",
         "set": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "csignal": "cpp"
     }
 }
