@@ -1,13 +1,37 @@
 #include <MyLib/myLogDef.h>
 
 #include <cctype>
+#include <csignal>
 #include <limits>
 #include <algorithm>
+
+/**
+ * @brief 强行结束程序需要清理 I/O 流，所以需要重设 CTRL + C 的行为。
+*/
+void endBehaviorHandle(int __signalIndex);
 
 /**
  * @brief 判断传入字符是否为处数字字符和字母字符之外的字符（标点符号）
 */
 bool isInterpunction(const unsigned char __ch);
+
+void endBehaviorHandle(int __signalIndex)
+{
+    switch(__signalIndex)
+    {
+        case SIGINT:
+            /*
+                做梦都没想到，signal 库居然不适配 C++ 标准 I/O，
+                换成 C 标准 I/O，一切都解决了。。
+            */
+            printf("\033[38;5;1mForcefully ending.\033[38;5;7m\n");
+            std::exit(EXIT_SUCCESS);
+            break;
+
+        default:
+            break;
+    }
+}
 
 bool isInterpunction(const unsigned char __ch)
 {
@@ -72,16 +96,21 @@ bool isPalindromeString(std::string & __str)
 int main(int argc, char const *argv[])
 {
     using namespace MyLib::MyLog;
+
     system("cls");
+
+    /*
+        注册信号函数，指定 CTRL + C 的行为。
+    */
+    std::signal(SIGINT, endBehaviorHandle);
 
     log(std::cout, NOTIFY, "This Program Check The String You Input Is PalindromeString or Not.\n");
     
     std::string userInput;
 
     log(std::cout, NOTIFY, "Please enter something: ");
-    std::getline(std::cin, userInput);
 
-    while (userInput != ".quit")
+    while (std::getline(std::cin, userInput) && (userInput != ".quit"))
     {
         if (isPalindromeString(userInput))
         {
@@ -92,8 +121,7 @@ int main(int argc, char const *argv[])
             log(std::cout, WARNING, "String: [", userInput, "] is not a PalindromeString!\n");
         }
 
-        log(std::cout, NOTIFY, "Please enter something again: ");
-        std::getline(std::cin, userInput);
+        log(std::cout, NOTIFY, "Please enter something again: \n");
     }
 
     log(std::cout, CORRECT, "Done.\n");
