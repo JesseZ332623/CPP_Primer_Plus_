@@ -1,10 +1,10 @@
-#include <MyLib/myLogDef.h>
 
+#include <MyLib/myLogDef.h>
 #include <string>
 #include <algorithm>
 
-#define LINUX true
-#define WINDOWS_X86 false
+#define LINUX false
+#define WINDOWS_X86 true
 
 /**
  * 程序的目标很简单，从标准输入中读取数据到字符串，
@@ -16,7 +16,7 @@
 
 int main(int argc, char const *argv[])
 {
-    using namespace MyLog;
+    using namespace MyLib::MyLog;
 
 #if LINUX
     system("clear");
