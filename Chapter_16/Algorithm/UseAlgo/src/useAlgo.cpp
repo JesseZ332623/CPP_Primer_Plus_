@@ -28,11 +28,18 @@ void wordsUserInput(std::vector<std::string> & __wordsArray)
     std::string tempWordsString;
     using namespace MyLib::MyLog;
     using MyLib::MyDelay::delay;
-    
-    log(std::cout, NOTIFY, "Enter some words (Press `.quit` to Quit.):\n");
+
+input: 
+    log(std::cout, NOTIFY, "Enter some words (Press `.quit` to analysis. Press .exit to EXIT.):\n");
     while (std::cin >> tempWordsString && tempWordsString != ".quit")
     {
-        if (!isWord(tempWordsString))
+        if (tempWordsString == ".exit")
+        {
+            tempWordsString.clear();
+            log(std::cout, CORRECT,"Done.\n");
+            std::exit(EXIT_SUCCESS);
+        }
+        else if (!isWord(tempWordsString))
         { 
             log(std::cout, WARNING, tempWordsString, " Is Invalid Input! Just Input Words!\n");
             log(std::cout, NOTIFY, "Enter some words (Press `.quit` to quit.):\n");
@@ -40,6 +47,14 @@ void wordsUserInput(std::vector<std::string> & __wordsArray)
             continue;
         }
         __wordsArray.push_back(tempWordsString);
+    }
+
+    if (__wordsArray.empty())
+    {
+        log(std::cerr, ERROR, "No valid input!!\n");
+        delay(2000);
+        system("cls");
+        goto input;
     }
 
     log(std::cout, NOTIFY, "Input Complete, quit.\n");
