@@ -12,7 +12,7 @@
 
 int main(int argc, char const *argv[])
 {
-    using namespace MyLib::MyLog;
+    using namespace MyLib::MyLoger;
     using namespace MyLib::SimpleContainerOperator;
     using MyLib::MyDelay::delay;
 
@@ -56,10 +56,10 @@ int main(int argc, char const *argv[])
     std::vector<double> data;
     double tempNumber;
 
-    log(std::cout, NOTIFY, "Enter numbers (<= 0 to quit input):\n");
+    loger(std::cout, NOTIFY, "Enter numbers (<= 0 to quit input):\n");
     while (std::cin >> tempNumber && tempNumber > 0) { data.push_back(tempNumber); }
     std::size_t dataSize = data.size();
-    if (!dataSize) { log(std::cout, ERROR, "Empty Input.\n"); return -1; }
+    if (!dataSize) { loger(std::cout, ERROR, "Empty Input.\n"); return -1; }
 
     std::sort(data.begin(), data.end());
 
@@ -99,7 +99,7 @@ int main(int argc, char const *argv[])
     std::cout.precision(4);
 
     printSplitLine(75, '-');
-    log(std::cout, NOTIFY, "log(numbersList[index])\t\tlogNumList[index] * 2 + numbersList[index]\n");
+    loger(std::cout, NOTIFY, "log(numbersList[index])\t\tlogNumList[index] * 2 + numbersList[index]\n");
     printSplitLine(75, '-');
     for (index = 0L; index < dataSize; ++index)
     {
@@ -112,7 +112,7 @@ int main(int argc, char const *argv[])
     printSplitLine(75, '-');
 #endif
 
-    log(std::cout, CORRECT, "Done.\n");
+    loger(std::cout, CORRECT, "Done.\n");
 
     return EXIT_SUCCESS;
 }
