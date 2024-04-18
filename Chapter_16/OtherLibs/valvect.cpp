@@ -80,12 +80,14 @@ int main(int argc, char const *argv[])
 
     /**
      * 一些数学函数和运算符也对 std::valarray 容器做了重载，
-     * 可以统一的对该容器内的数据进行数学计算
+     * 可以统一的对该容器内的数据进行数学计算。
+     * 
+     * 比如此处，就是对 numbersList 整个 std::valarray<double> 类对象的数据求以 10 为底的对数值。
     */
-    logNumList = std::log(numbersList);
+    logNumList = std::log10(numbersList);
 
     /**
-     * 将 logNumList 内的所有数据 * 2.0 再加上 numbersList 内的所有数据，图示如下：
+     * 将 logNumList 内的所有数据 * 2.0 再加上 numbersList 内的所有数据，示例如下：
      * 
      * logNumList =  (({3, 6, 9}) * 2)
      *     +            +  +  +
