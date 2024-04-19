@@ -1,5 +1,5 @@
 
-#include <MyLib/myLogDef.h>
+#include <MyLib/myLogerDef.h>
 #include <string>
 #include <algorithm>
 
@@ -16,7 +16,7 @@
 
 int main(int argc, char const *argv[])
 {
-    using namespace MyLib::MyLog;
+    using namespace MyLib::MyLoger;
 
 #if LINUX
     system("clear");
@@ -29,32 +29,32 @@ int main(int argc, char const *argv[])
     std::string letterString;
     std::size_t combinationAmount = 1L;
 
-    log(std::cout, NOTIFY, "Please enter the new letter: \n");
+    loger(std::cout, NOTIFY, "Please enter the new letter: \n");
     
     while (std::getline(std::cin, letterString) && letterString != ".quit")
     {
         system("cls");
         
-        log(std::cout, CORRECT, "Permutations of ", letterString, " is: \n");
+        loger(std::cout, CORRECT, "Permutations of ", letterString, " is: \n");
         std::sort(letterString.begin(), letterString.end());
 
-        log(std::cout, ORIGINAL, letterString, '\t');
+        loger(std::cout, ORIGINAL, letterString, '\t');
 
         while (std::next_permutation(letterString.begin(), letterString.end()))
         {
-            log(std::cout, ORIGINAL, letterString, '\t');
+            loger(std::cout, ORIGINAL, letterString, '\t');
             ++combinationAmount;
 
-            if ((combinationAmount - 1) % 5 == 4) { log(std::cout, ORIGINAL, '\n'); }
+            if ((combinationAmount - 1) % 5 == 4) { loger(std::cout, ORIGINAL, '\n'); }
         }
-        log(std::cout, CORRECT, "\nCombination Amount = ", combinationAmount, '\n');
+        loger(std::cout, CORRECT, "\nCombination Amount = ", combinationAmount, '\n');
 
-        log(std::cout, NOTIFY, "\nEnter Next String: \n");
+        loger(std::cout, NOTIFY, "\nEnter Next String: \n");
 
         combinationAmount = 1L;
     }
 
-    log(std::cout, CORRECT, "Done.\n");
+    loger(std::cout, CORRECT, "Done.\n");
 
     return EXIT_SUCCESS;
 }
