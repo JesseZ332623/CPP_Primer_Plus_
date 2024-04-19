@@ -13,12 +13,12 @@ int main(int argc, char const *argv[])
     system("cls");
     std::srand(std::time(nullptr));
     using namespace MyLib::SimpleContainerOperator;
-    using namespace MyLib::MyLog;
+    using namespace MyLib::MyLoger;
 
     std::list<int> la = {11, 45, 60, 12, 32, 11, 56, 89, 323};
     std::list<int> lb = {87, 54, 6, 4354, 45645, 4444, 90};
 
-    log(std::cout, NOTIFY, "Original list la contents: \n");
+    loger(std::cout, NOTIFY, "Original list la contents: \n");
     showContainerToStream(std::cout, la);
     printSplitLine(30, '-');
 
@@ -27,11 +27,11 @@ int main(int argc, char const *argv[])
         在整张表中搜索目标数值，然后删除所有匹配的数值，并自动调整链表的大小
     */
     la.remove(11);
-    log(std::cout, NOTIFY, "la after using ", LIST_REMOVE_METHOD(11), '\n');
+    loger(std::cout, NOTIFY, "la after using ", LIST_REMOVE_METHOD(11), '\n');
     showContainerToStream(std::cout, la);
     printSplitLine(30, '-');
 
-    log(std::cout, NOTIFY, "Original list lb contents: \n");
+    loger(std::cout, NOTIFY, "Original list lb contents: \n");
     showContainerToStream(std::cout, lb);
     printSplitLine(30, '-');
     /*
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     */
     std::list<int>::iterator listIterB = std::remove(lb.begin(), lb.end(), 4444);
 
-    log(std::cout, NOTIFY, "lb after using ", STD_REMOVE_METHOD(4444), '\n');
+    loger(std::cout, NOTIFY, "lb after using ", STD_REMOVE_METHOD(4444), '\n');
     showContainerToStream(std::cout, lb);
     printSplitLine(30, '-');
 
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
         因此需要 erase 来移除链表不需要的部分。
     */
     lb.erase(listIterB, lb.end());
-    log(std::cout, NOTIFY, "lb after using erase()\n");
+    loger(std::cout, NOTIFY, "lb after using erase()\n");
     showContainerToStream(std::cout, lb);
     printSplitLine(30, '-');
 
