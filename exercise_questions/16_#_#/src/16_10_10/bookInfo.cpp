@@ -1,17 +1,43 @@
 #include "./bookInfo.h"
 
-bool __Book_Review::operator<(const __Book_Review & __bookReview)
+bool __Book_Review::titleCompare(const __Book_Review & __bookReview, Sequence __seq) const
 {
-    if (this->title < __bookReview.title) { return true; }
-
-    else if (this->title == __bookReview.title && this->rating < __bookReview.rating) { return true; }
-
-    else { return false; } 
+    if (__seq == ASCENDING)
+    {
+        return this->title < __bookReview.title;
+    }
+    else if (__seq == DESCENDING)
+    {
+        return this->title > __bookReview.title;
+    }
+    
+    return false;
 }
 
-bool __Book_Review::ratingCompare(const __Book_Review & __bookReview)
+bool __Book_Review::ratingCompare(const __Book_Review & __bookReview, Sequence __seq) const
 {
-    if (this->rating < __bookReview.rating) { return true; }
+    if (__seq == ASCENDING)
+    {
+        return this->rating < __bookReview.rating;
+    }
+    else if (__seq == DESCENDING)
+    {
+        return this->rating > __bookReview.rating;
+    }
+
+    return false;
+}
+
+bool __Book_Review::priceCompare(const __Book_Review & __bookReview, Sequence __seq) const
+{
+    if (__seq == ASCENDING)
+    {
+        return this->price < __bookReview.price;
+    }
+    else if (__seq == DESCENDING)
+    {
+        return this->price > __bookReview.price;
+    }
 
     return false;
 }
@@ -23,8 +49,11 @@ std::ostream & operator<<(std::ostream & __os, __Book_Review & __bookReview)
     __os.width(15);
     __os.setf(std::ios_base::left);
 
-    __os << __bookReview.rating;        __os.width(15);     delay(45);
-    __os << __bookReview.title;         __os.width(15);     delay(45);
+    __os.width(15); __os << __bookReview.rating;            delay(45);
+    __os.width(30); 
+    __os << __bookReview.title;   
+    
+    __os.precision(2);                                      delay(45);
     __os << __bookReview.price << std::endl;
 
     return __os;
@@ -59,11 +88,11 @@ void Book_Infomation_Storage::bookInfoDescribe(std::ostream & __os)
     //__os.width(15);
     //__os.setf(std::ios_base::left);
 
-    __os << "Rating";   __os.width(15);
-    __os << "Name";     __os.width(20);
-    __os << "Price\n";    
+    __os << "Rating";
+    __os.width(15); __os << "Name";    
+    __os.width(30); __os << "Price\n";
 
-    MyLib::MyLoger::printSplitLine(45, '-');
+    MyLib::MyLoger::printSplitLine(50, '-');
 }
 
 void Book_Infomation_Storage::fillLibraryReview(void)
@@ -82,17 +111,63 @@ void Book_Infomation_Storage::fillLibraryReview(void)
     }
 }
 
-void Book_Infomation_Storage::displayBooksLibrary(std::ostream & __os)
+void Book_Infomation_Storage::modeDisplay(std::ostream & __os, const std::vector<std::shared_ptr<Book_Review>> & __tempLibary) const
 {
-    bookInfoDescribe(__os);
     std::for_each(
-                    booksLibrary.begin(), booksLibrary.end(), 
+                    __tempLibary.begin(), __tempLibary.end(), 
                     [& __os] (const std::shared_ptr<Book_Review> & __reviewPtr) 
                     {
                         __os << *__reviewPtr;
                         MyLib::MyDelay::delay(45);
                     }
-                 );
+                );
+    MyLib::MyLoger::printSplitLine(50, '-');
+}
+
+void Book_Infomation_Storage::displayBooksLibrary(std::ostream & __os, int __displayMode)
+{
+    using namespace MyLib::MyLoger;
+
+    system("cls");
+
+    loger(__os, NOTIFY, "OK! Show booksLibrary content ");
+    std::vector<std::shared_ptr<Book_Review>> tempLibary(this->booksLibrary);
+
+    switch (__displayMode)
+    {
+        case IN_ORIGINAL_VECTOR_ORDER:
+            loger(__os, CORRECT, "[IN_ORIGINAL_VECTOR_ORDER Mode]: \n");
+            bookInfoDescribe(__os);
+            modeDisplay(__os, booksLibrary);
+            break;
+
+        case IN_ALPHABETICAL_ORDER:
+            std::sort(
+                        tempLibary.begin(), tempLibary.end(),
+                        [](const auto & a, const auto & b) { return a->titleCompare(*b, Book_Review::ASCENDING); }
+                    );
+            loger(__os, CORRECT, "[IN_ALPHABETICAL_ORDER Mode]: \n");
+            bookInfoDescribe(__os);
+            modeDisplay(__os, tempLibary);
+            break;
+
+        case IN_ASCENDING_ORDER_OF_RATINGS:
+            bookInfoDescribe(__os);
+            
+            break;  
+        case IN_DESSCENDING_ORDER_OF_RATINGS:
+            bookInfoDescribe(__os);
+            break;
+        case IN_ASCENDING_PRICE_ORDER:
+            bookInfoDescribe(__os);
+            break;
+        case IN_DESCENDING_PRICE_ORDER:
+            bookInfoDescribe(__os);
+            break;
+
+        default:
+            break;
+    };
 }
 
 int main(int argc, char const *argv[])
@@ -105,7 +180,7 @@ int main(int argc, char const *argv[])
 
     bookLib.fillLibraryReview();
 
-    bookLib.displayBooksLibrary(std::cout);
+    bookLib.displayBooksLibrary(std::cout, Book_Infomation_Storage::IN_ALPHABETICAL_ORDER);
 
     DONE;
     return EXIT_SUCCESS;

@@ -19,6 +19,14 @@ typedef struct __Book_Review
 
     public:
         /**
+         * @brief 用来指定排序的升降序
+         * 
+         * 1. ASCENDING     升序
+         * 2. DESCENDING    降序
+        */
+        enum Sequence { ASCENDING = 0, DESCENDING };
+
+        /**
          * @brief 用户往 __Book_Review 输入数据
          * 
          * @return non-return
@@ -26,14 +34,14 @@ typedef struct __Book_Review
         bool fillReview(void);
 
         /**
-         * @brief 和另一个 __Book_Review 结构体进行 title 和 rating 上的比较，
-         *        用于 std::sort() 升序排序算法。
+         * @brief 和另一个 __Book_Review 结构体进行 title 上的比较，
+         *        用于 std::sort() 排序算法。
          * 
          * @param __bookReview 另一个 __Book_Review 结构体实例
          * 
          * @return 比较结果 true（a > b）false（a < b）
         */
-        bool operator<(const __Book_Review & __bookReview);
+        bool titleCompare(const __Book_Review & __bookReview, Sequence __seq) const;
 
         /**
          * @brief 和另一个 __Book_Review 结构体进行 rating 上的比较，
@@ -43,7 +51,17 @@ typedef struct __Book_Review
          * 
          * @return 比较结果 true（a > b）false（a < b）
         */
-        bool ratingCompare(const __Book_Review & __bookReview);
+        bool ratingCompare(const __Book_Review & __bookReview, Sequence __seq) const;
+
+        /**
+         * @brief 和另一个 __Book_Review 结构体进行 price 上的比较，
+         *        用于 std::sort() 升序排序算法。
+         * 
+         * @param __bookReview 另一个 __Book_Review 结构体实例
+         * 
+         * @return 比较结果 true（a > b）false（a < b）
+        */
+        bool priceCompare(const __Book_Review & __bookReview, Sequence __seq) const;
 
         /**
          * @brief 往标准输出发送该结构体的数据流
@@ -62,10 +80,30 @@ typedef struct __Book_Review
 */
 class Book_Infomation_Storage
 {
+    public:
+        /**
+         * 数据的显示模式枚举，有以下 6 种：
+         * 1. IN_ORIGINAL_VECTOR_ORDER          按原始数组顺序显示
+         * 2. IN_ALPHABETICAL_ORDER             按字母表顺序显示
+         * 3. IN_ASCENDING_ORDER_OF_RATINGS     按评级升序显示
+         * 4. IN_DESSCENDING_ORDER_OF_RATINGS   按评级降序显示
+         * 5. IN_ASCENDING_PRICE_ORDER          按价格升序显示
+         * 6. IN_DESCENDING_PRICE_ORDER         按价格降序显示
+        */
+        enum Display_Mode 
+        { 
+            IN_ORIGINAL_VECTOR_ORDER = 0,
+            IN_ALPHABETICAL_ORDER,
+            IN_ASCENDING_ORDER_OF_RATINGS,
+            IN_DESSCENDING_ORDER_OF_RATINGS,
+            IN_ASCENDING_PRICE_ORDER,
+            IN_DESCENDING_PRICE_ORDER
+        };
     private:
         std::vector<std::shared_ptr<Book_Review>> booksLibrary;
 
         void bookInfoDescribe(std::ostream & __os);
+        void modeDisplay(std::ostream & __os, const std::vector<std::shared_ptr<Book_Review>> & __tempLibary) const;
 
     public:
         /**
@@ -75,7 +113,7 @@ class Book_Infomation_Storage
         */
         void fillLibraryReview(void);
 
-        void displayBooksLibrary(std::ostream & __os);
+        void displayBooksLibrary(std::ostream & __os, int __displayMode = 0);
 };
 
 #endif // _BOOK_INFO_H_
