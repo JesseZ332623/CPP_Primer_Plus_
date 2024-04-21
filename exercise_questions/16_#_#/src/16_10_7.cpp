@@ -36,7 +36,7 @@ std::vector<int> getLottoWinnerCode(int __maxValue, int __codeLength);
 int main(int argc, char const *argv[])
 {
     std::clock_t startTime = 0L;
-    std::clock_t costTime = 0L;
+    double costTime = 0.0;
 
     while (true)
     {
@@ -46,9 +46,9 @@ int main(int argc, char const *argv[])
         startTime = std::clock();
 
         /*从 51 个数中随机挑选 16 个数作为中奖代码*/
-        std::vector<int> winnerLottoCode = getLottoWinnerCode(101, 16);
+        std::vector<int> winnerLottoCode = getLottoWinnerCode(15000000, 16);
 
-        costTime = std::clock() - startTime;
+        costTime = (double)(std::clock() - startTime) / CLOCKS_PER_SEC;
 
         showContainerToStream(std::cout, winnerLottoCode, 16);
         loger(std::cout, CORRECT, costTime, " ms.\n");
