@@ -8,7 +8,7 @@
 #include <MyLib/myLib.h>
 
 /**
- * @brief 一本书的属性，由：书名，书的评价，书价 三个值组成
+ * @brief 一本书的属性，由：书名，书的评价，书价 三个值组成。
 */
 typedef struct __Book_Review
 {
@@ -19,7 +19,7 @@ typedef struct __Book_Review
 
     public:
         /**
-         * @brief 用来指定排序的升降序
+         * @brief 用来指定排序的升降序。
          * 
          * 1. ASCENDING     升序
          * 2. DESCENDING    降序
@@ -27,7 +27,7 @@ typedef struct __Book_Review
         enum Sequence { ASCENDING = 0, DESCENDING };
 
         /**
-         * @brief 用户往 __Book_Review 输入数据
+         * @brief 用户往 __Book_Review 输入数据。
          * 
          * @return non-return
         */
@@ -64,7 +64,7 @@ typedef struct __Book_Review
         bool priceCompare(const __Book_Review & __bookReview, Sequence __seq) const;
 
         /**
-         * @brief 往标准输出发送该结构体的数据流
+         * @brief 往标准输出发送该结构体的数据流。
          * 
          * @param __os C++ 标准输出流
          * @param __bookReview __Book_Review 结构体实例
@@ -102,12 +102,12 @@ class Book_Infomation_Storage
     private:
         /**
          * @brief 存储 n 本属性的容器，
-         *        应题目要求，容器内的每一个元素都是 `std::shared_ptr<Book_Review>` 类型
+         *        应题目要求，容器内的每一个元素都是 `std::shared_ptr<Book_Review>` 类型。
         */
         std::vector<std::shared_ptr<Book_Review>> booksLibrary;
 
         /**
-         * @brief 往 标准输出发送数据说明
+         * @brief 往 标准输出发送数据说明。
          * 
          * @param __os C++ 标准输出流
          * 
@@ -116,25 +116,36 @@ class Book_Infomation_Storage
         void bookInfoDescribe(std::ostream & __os);
 
         /**
-         * @brief 单次输出容器内数据时调用的函数，具备高复用性
+         * @brief 单次输出容器内数据时调用的函数，具备高复用性。
          * 
          * @param __os          C++ 标准输出流
-         * @param __tempLibary  容器
+         * @param __tempLibary  临时容器
          * 
          * @return non-return
         */
         void modeDisplay(std::ostream & __os, const std::vector<std::shared_ptr<Book_Review>> & __tempLibary) const;
 
     public:
+
         /**
-         * @brief 用户往整个 booksLibrary 智能指针矢量中输入数据
+         * @brief 获取内部容器当前元素数。
+        */
+        std::size_t getLibrarySize(void) { return booksLibrary.size(); }
+
+        /**
+         * @brief 清空整个 booksLibrary 容器。
+        */
+        void clearCointer(void) { this->booksLibrary.clear(); }
+        
+        /**
+         * @brief 用户往整个 booksLibrary 智能指针矢量中输入数据。
          * 
          * @return non-return
         */
         void fillLibraryReview(void);
 
         /**
-         * @brief 按照不同的输出模式，往标准输出发送指定格式的容器数据
+         * @brief 按照不同的输出模式，往标准输出发送指定格式的容器数据。
          * 
          * @param __os          C++ 标准输出流
          * @param __displayMode 输出模式，默认为 按原始数组顺序显示

@@ -103,7 +103,7 @@ void Book_Infomation_Storage::fillLibraryReview(void)
     using namespace MyLib::MyLoger;
 
     Book_Review tempReview;
-    std::size_t bookCount = 1L;
+    std::size_t bookCount = this->booksLibrary.size() + 1;
 
     loger(std::cout, NOTIFY, "Recording No.", bookCount++, " books.\n");
     while (tempReview.fillReview())
