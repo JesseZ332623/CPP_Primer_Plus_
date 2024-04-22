@@ -1,0 +1,5 @@
+3              The Wimps of Wonk                            34.67
+8              The Dog of Dharma                             87.77
+5              Farewell and Delete                             80.56
+4	Stray Birds		           51.89
+7	Million pounds	                           1000000.00

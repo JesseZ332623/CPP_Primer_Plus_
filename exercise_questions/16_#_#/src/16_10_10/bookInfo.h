@@ -92,17 +92,37 @@ class Book_Infomation_Storage
         */
         enum Display_Mode 
         { 
-            IN_ORIGINAL_VECTOR_ORDER = 0,
-            IN_ALPHABETICAL_ORDER,
-            IN_ASCENDING_ORDER_OF_RATINGS,
-            IN_DESSCENDING_ORDER_OF_RATINGS,
-            IN_ASCENDING_PRICE_ORDER,
-            IN_DESCENDING_PRICE_ORDER
+            IN_ORIGINAL_VECTOR_ORDER = 0,       // 按原始数组顺序显示
+            IN_ALPHABETICAL_ORDER,              // 按字母表顺序显示
+            IN_ASCENDING_ORDER_OF_RATING,       // 按评级升序显示
+            IN_DESSCENDING_ORDER_OF_RATING,     // 按评级降序显示
+            IN_ASCENDING_PRICE_ORDER,           // 按价格升序显示
+            IN_DESCENDING_PRICE_ORDER           // 按价格降序显示
         };
     private:
+        /**
+         * @brief 存储 n 本属性的容器，
+         *        应题目要求，容器内的每一个元素都是 `std::shared_ptr<Book_Review>` 类型
+        */
         std::vector<std::shared_ptr<Book_Review>> booksLibrary;
 
+        /**
+         * @brief 往 标准输出发送数据说明
+         * 
+         * @param __os C++ 标准输出流
+         * 
+         * @return non-return
+        */
         void bookInfoDescribe(std::ostream & __os);
+
+        /**
+         * @brief 单次输出容器内数据时调用的函数，具备高复用性
+         * 
+         * @param __os          C++ 标准输出流
+         * @param __tempLibary  容器
+         * 
+         * @return non-return
+        */
         void modeDisplay(std::ostream & __os, const std::vector<std::shared_ptr<Book_Review>> & __tempLibary) const;
 
     public:
@@ -113,7 +133,15 @@ class Book_Infomation_Storage
         */
         void fillLibraryReview(void);
 
-        void displayBooksLibrary(std::ostream & __os, int __displayMode = 0);
+        /**
+         * @brief 按照不同的输出模式，往标准输出发送指定格式的容器数据
+         * 
+         * @param __os          C++ 标准输出流
+         * @param __displayMode 输出模式，默认为 按原始数组顺序显示
+         * 
+         * @return non-return
+        */
+        void displayBooksLibrary(std::ostream & __os, int __displayMode = IN_ORIGINAL_VECTOR_ORDER);
 };
 
 #endif // _BOOK_INFO_H_

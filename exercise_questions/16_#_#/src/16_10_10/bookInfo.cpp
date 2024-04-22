@@ -45,15 +45,17 @@ bool __Book_Review::priceCompare(const __Book_Review & __bookReview, Sequence __
 std::ostream & operator<<(std::ostream & __os, __Book_Review & __bookReview)
 {
     using MyLib::MyDelay::delay;
-    
-    __os.width(15);
-    __os.setf(std::ios_base::left);
 
-    __os.width(15); __os << __bookReview.rating;            delay(45);
-    __os.width(30); 
+    __os.setf(std::ios_base::left); 
+    __os.width(15);
+    __os << __bookReview.rating;            
+    delay(45); 
+
+    __os.width(45); 
     __os << __bookReview.title;   
-    
-    __os.precision(2);                                      delay(45);
+    delay(45);
+
+    __os.precision(5); 
     __os << __bookReview.price << std::endl;
 
     return __os;
@@ -73,7 +75,7 @@ bool __Book_Review::fillReview(void)
 
     if (!std::cin) { return false; }
 
-    loger(std::cout, NOTIFY, "Enter book price: ");
+    loger(std::cout, NOTIFY, "Enter book price $: ");
     std::cin >> this->price;
 
     if (!std::cin) { return false; }
@@ -85,14 +87,15 @@ bool __Book_Review::fillReview(void)
 
 void Book_Infomation_Storage::bookInfoDescribe(std::ostream & __os)
 {
-    //__os.width(15);
-    //__os.setf(std::ios_base::left);
+    __os.width(15); __os.setf(std::ios_base::left); // 添加左对齐设置
 
     __os << "Rating";
-    __os.width(15); __os << "Name";    
-    __os.width(30); __os << "Price\n";
+    __os.width(45); __os << "Name";    
+    __os.width(5);  __os << "Price$";               
 
-    MyLib::MyLoger::printSplitLine(50, '-');
+    __os << std::endl;                                   // 替换为单独的换行符，避免干扰列宽度设置
+
+    MyLib::MyLoger::printSplitLine(80, '-');
 }
 
 void Book_Infomation_Storage::fillLibraryReview(void)
@@ -121,7 +124,7 @@ void Book_Infomation_Storage::modeDisplay(std::ostream & __os, const std::vector
                         MyLib::MyDelay::delay(45);
                     }
                 );
-    MyLib::MyLoger::printSplitLine(50, '-');
+    MyLib::MyLoger::printSplitLine(80, '-');
 }
 
 void Book_Infomation_Storage::displayBooksLibrary(std::ostream & __os, int __displayMode)
@@ -149,39 +152,53 @@ void Book_Infomation_Storage::displayBooksLibrary(std::ostream & __os, int __dis
             loger(__os, CORRECT, "[IN_ALPHABETICAL_ORDER Mode]: \n");
             bookInfoDescribe(__os);
             modeDisplay(__os, tempLibary);
+
             break;
 
-        case IN_ASCENDING_ORDER_OF_RATINGS:
+        case IN_ASCENDING_ORDER_OF_RATING:
+            std::sort(
+                        tempLibary.begin(), tempLibary.end(),
+                        [](const auto & a, const auto & b) { return a->ratingCompare(*b, Book_Review::ASCENDING); }
+                    );
+            loger(__os, CORRECT, "[IN_ASCENDING_ORDER_OF_RATINGS Mode]: \n");
             bookInfoDescribe(__os);
-            
+            modeDisplay(__os, tempLibary);
+
             break;  
-        case IN_DESSCENDING_ORDER_OF_RATINGS:
+
+        case IN_DESSCENDING_ORDER_OF_RATING:
+            std::sort(
+                        tempLibary.begin(), tempLibary.end(),
+                        [](const auto & a, const auto & b) { return a->ratingCompare(*b, Book_Review::DESCENDING); }
+                    );
+            loger(__os, CORRECT, "[IN_DESSCENDING_ORDER_OF_RATINGS Mode]: \n");
             bookInfoDescribe(__os);
+            modeDisplay(__os, tempLibary);
+
             break;
+
         case IN_ASCENDING_PRICE_ORDER:
+            std::sort(
+                        tempLibary.begin(), tempLibary.end(),
+                        [](const auto & a, const auto & b) { return a->priceCompare(*b, Book_Review::ASCENDING); }
+                    );
+            loger(__os, CORRECT, "[IN_ASCENDING_PRICE_ORDER Mode]: \n");
             bookInfoDescribe(__os);
+            modeDisplay(__os, tempLibary);
             break;
+
         case IN_DESCENDING_PRICE_ORDER:
+            std::sort(
+                        tempLibary.begin(), tempLibary.end(),
+                        [](const auto & a, const auto & b) { return a->priceCompare(*b, Book_Review::DESCENDING); }
+                    );
+            loger(__os, CORRECT, "[IN_DESCENDING_PRICE_ORDER Mode]: \n");
             bookInfoDescribe(__os);
+            modeDisplay(__os, tempLibary);
             break;
 
         default:
+            ERROR_LOG("Unknow options!\n");
             break;
     };
-}
-
-int main(int argc, char const *argv[])
-{
-    using namespace MyLib::MyLoger;
-
-    system("cls");
-
-    Book_Infomation_Storage bookLib;
-
-    bookLib.fillLibraryReview();
-
-    bookLib.displayBooksLibrary(std::cout, Book_Infomation_Storage::IN_ALPHABETICAL_ORDER);
-
-    DONE;
-    return EXIT_SUCCESS;
 }
