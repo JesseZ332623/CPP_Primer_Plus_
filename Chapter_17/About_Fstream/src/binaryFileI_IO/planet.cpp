@@ -35,7 +35,6 @@ planetary_population:
         loger(std::cout, NOTIFY, "Enter planetary population: ");
         std::cin >> this->population;
         if (!checkInputState(std::cin)) { goto planetary_population; }
-
     
 acceleration_of_gravity:
         loger(std::cout, NOTIFY, "Enter acceleration of gravity: ");
