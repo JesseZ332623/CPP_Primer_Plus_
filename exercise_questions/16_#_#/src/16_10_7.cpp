@@ -31,7 +31,7 @@ void getBoundValue(std::vector<int> & __boundNumList, int __maxValue);
  * 
  * @return 最后生成的中奖号码
 */
-std::vector<int> getLottoWinnerCode(int __maxValue, int __codeLength);
+std::vector<std::size_t> getLottoWinnerCode(std::size_t __maxValue, int __codeLength);
  
 int main(int argc, char const *argv[])
 {
@@ -45,8 +45,11 @@ int main(int argc, char const *argv[])
 
         startTime = std::clock();
 
+        std::vector<std::size_t> winnerLottoCode;
+        //constexpr std::size_t vectorMaxSize = winnerLottoCode.max_size();
+
         /*从 51 个数中随机挑选 16 个数作为中奖代码*/
-        std::vector<int> winnerLottoCode = getLottoWinnerCode(15000000, 16);
+        winnerLottoCode = getLottoWinnerCode(ULONG_MAX, 1024);
 
         costTime = (double)(std::clock() - startTime) / CLOCKS_PER_SEC;
 
@@ -62,7 +65,7 @@ int main(int argc, char const *argv[])
     return EXIT_SUCCESS;
 }
 
-void getBoundValue(std::vector<int> & __boundNumList, int __maxValue)
+void getBoundValue(std::vector<std::size_t> & __boundNumList, int __maxValue)
 {
     //__boundNumList.resize(__maxValue);
 
@@ -72,16 +75,16 @@ void getBoundValue(std::vector<int> & __boundNumList, int __maxValue)
     }
 }
 
-std::vector<int> getLottoWinnerCode(int __maxValue, int __codeLength)
+std::vector<std::size_t> getLottoWinnerCode(std::size_t __maxValue, int __codeLength)
 {
     /*使用高质量的随机数生成器*/
     std::mt19937 randomDevice(std::random_device{}());
 
     /*一条由 1 ~ __maxValue 组成的 vector 数列*/
-    std::vector<int> boundNumList(__maxValue);
+    std::vector<std::size_t> boundNumList(__maxValue);
 
     /*最终的中奖代码*/
-    std::vector<int> winnerCode(__codeLength);
+    std::vector<std::size_t> winnerCode(__codeLength);
 
     getBoundValue(boundNumList, __maxValue);
 
