@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
                 break;
         };
 
-        cleanResidualStream();
+        //cleanResidualStream();
     }
 
     DONE

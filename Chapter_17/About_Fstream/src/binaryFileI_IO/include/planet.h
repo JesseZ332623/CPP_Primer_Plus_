@@ -99,6 +99,8 @@ typedef struct __Planet
             NOTIFY_LOG(__promote);
             __is >> __member;
 
+            while (std::cin.get() != '\n') { continue; }
+
             if (!checkInputState(__is, __errMessage)) { continue; }
             if (!__rule()) 
             { 

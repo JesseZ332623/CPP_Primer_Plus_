@@ -28,8 +28,10 @@ bool Planet::getPlanetData(void)
 
     loger(std::cout, NOTIFY, "Enter planet name (Enter a black line to quit):\n");
 
-    cleanResidualStream();
-    std::cin.get(this->name, 20);
+    //cleanResidualStream();
+    //std::cin.get(this->name, 20);
+    std::cin.getline(this->name, '#');
+    
 
     if (this->name[0] != '\0')
     {
@@ -165,7 +167,7 @@ void PlanetInfo_Operator::modifyPlanetData(void)
             );
 
         std::cin >> record;
-        cleanResidualStream();
+        while (std::cin.get() != '\n') { continue; }
 
         if (record <= 0 || record > this->planetRecordCount)
         {
