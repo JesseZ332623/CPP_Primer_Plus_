@@ -20,7 +20,7 @@ int main(int argc, char const *argv[])
     std::cout << sentence + '\n';
     while (inputStream >> word)
     {
-        std::cout << word << '\n';
+        std::cout << word << '\n';  
     }
 
     return EXIT_SUCCESS;
