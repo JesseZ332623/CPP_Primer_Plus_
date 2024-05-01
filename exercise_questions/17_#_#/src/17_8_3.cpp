@@ -2,6 +2,18 @@
 
 #include <fstream>
 #include <cstring>
+#include <chrono>
+
+/*
+    TIMER                           计算一个函数的执行时间
+*/
+#define TIMER(Run) [&]() { \
+    auto t1 = std::chrono::system_clock::now(); \
+    Run; \
+    auto t2 = std::chrono::system_clock::now(); \
+    auto dt = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count(); \
+    return dt; \
+}()
 
 /**
  * 从命令行中（即 argv[1] ~ argv[2] 中）获取文件路径，
@@ -23,10 +35,10 @@ class FileCopyOperator
 
     private:
         const std::string version{"1.0.0"};
-        static constexpr std::size_t bufferSize = 128;
+        static constexpr std::size_t bufferSize = 1024 * 1024;
 
         /**
-         * @brief 字节缓冲区，以 128 字节作为一段数据，避免单字节拷贝
+         * @brief 字节缓冲区，以 1024 字节作为一段数据，避免单字节拷贝
         */
         byte byteBuffer[bufferSize];
 
@@ -95,17 +107,35 @@ class FileCopyOperator
 
 std::string FileCopyOperator::getFileType(const std::string & __srcFile)
 {
+    /*获取 . 字符第一次出现在字符串 __srcFile 中的位置。*/
     std::size_t dotPos = __srcFile.find('.');
 
+    /*在确保字符串 __srcFile 有 . 字符的情况下 */
     if (dotPos != __srcFile.npos)
     {
+        /*分割 . 字符后面的所有字符，并返回*/
         return __srcFile.substr(dotPos + 1);
     }
-    else { return ""; }
+    else { return ""; } // 在 __srcFile 找不到 . 字符就返回空字符
+}
+
+std::string FileCopyOperator::getFileName(const std::string & __srcFile)
+{
+    /*若在 __srcFile 中没有找到 / 字符，则代表它可能是一个纯文件，或者非法字符串*/
+    if (__srcFile.find('/') == __srcFile.npos) { return ""; }
+
+    std::size_t pathPos = 0;
+
+    /*从 __srcFile 末尾开始查找 / 字符，并返回它的位置*/
+    if ((pathPos = __srcFile.rfind('/')) == __srcFile.npos) { return ""; }
+
+    /*分割最后一个 / 字符后出现的所有字符，并返回*/
+    return __srcFile.substr(pathPos + 1); 
 }
 
 void FileCopyOperator::copyFile(const std::string __srcFile, const std::string __tarPath)
 {
+    /*由于可能传入的非法字符，所以需要有异常机制*/
     try
     {
         /*打开要被复制的文件*/
@@ -117,11 +147,27 @@ void FileCopyOperator::copyFile(const std::string __srcFile, const std::string _
         }
 
         /*
-            将要被复制的文件和要被复制到的路径组成新的文件名，
-            如 ./data/a.txt
+            将要被复制的文件和要被复制到的路径组成新的文件路径，
+            如 ./data/The_Art_of_Patience.txt
         */
-        std::string targetFile = __tarPath + '/' + __srcFile + '.' + getFileType(__srcFile);
+        std::string targetFile;
 
+        /*检查 __tarPath 的最后一个字符是不是 /，如果没有就要给他添加上*/
+        if (*(__tarPath.end() - 1) == '/')
+        {
+            targetFile = __tarPath + this->getFileName(__srcFile);
+        }
+        else
+        {
+            targetFile = __tarPath + '/' + this->getFileName(__srcFile);
+        }
+
+        loger(
+                std::cout, NOTIFY,
+                "Copy [", __srcFile, "] to [", targetFile, "]\n"
+        );
+
+        /*打开 或 创建（在目标文件不存在的情况下）targetFile*/
         this->writeFstream.open(targetFile, std::ios_base::out | std::ios_base::binary);
 
         if (!this->writeFstream.is_open())
@@ -129,16 +175,26 @@ void FileCopyOperator::copyFile(const std::string __srcFile, const std::string _
             throw std::runtime_error("Failed to open the target file: " + targetFile + '\n');
         }
 
+        /*当没有读到源文件末尾时*/
         while (!this->readFStream.eof())
         {
+            /*从源文件挖 bufferSize 字节的数据到 byteBuffer*/
             readFStream.read(reinterpret_cast<char *>(&this->byteBuffer), this->bufferSize);
-            std::streamsize bytesRead = readFStream.gcount();
+            std::streamsize bytesRead = readFStream.gcount();   // 确定一共读了多少字节的数据，避免文件本身比缓冲区还小的情况。
 
+            /*把 缓冲区内的数据全部写入目标文件*/
             writeFstream.write(reinterpret_cast<char *>(&this->byteBuffer), bytesRead);
+
+            /*写入字节数累加*/
             this->sourceFileByteCount += bytesRead;
 
             if (readFStream.eof()) { break; }
         }
+
+        loger(
+                std::cout, NOTIFY,
+                "Total byte of", __srcFile, " = ", this->sourceFileByteCount, " Bytes.\n"
+        );
     }
     catch (const std::exception & __except)
     {
@@ -146,8 +202,6 @@ void FileCopyOperator::copyFile(const std::string __srcFile, const std::string _
     }
 
 }
-
-
 
 /**
  * @brief 检查那些无效的命令行参数输入，
@@ -171,11 +225,19 @@ int main(int argc, char const *argv[])
 
     else if ((std::strcmp(argv[1], "--version") == 0) && argc == 2) { FileCopyOp.showVersion(); }
 
-    else if (argc == 3) { FileCopyOp.copyFile(argv[1], argv[2]); }
+    else if (argc == 3) 
+    {   
+        int64_t costTime = TIMER( FileCopyOp.copyFile(argv[1], argv[2]));
+
+        loger(
+            std::cout, NOTIFY,
+            "Copy cost ", costTime, " ms.\n"
+        ); 
+    }
 
     else 
     {
-        ERROR_LOG("Not or invalid argument!\n"); 
+        ERROR_LOG("Invalid argument!\n"); 
         FileCopyOp.showHelp();
     }
 
