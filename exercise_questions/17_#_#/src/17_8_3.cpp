@@ -15,6 +15,9 @@
     return dt; \
 }()
 
+#define WINDOWS_X86 true
+#define LINUX_UBUNTU false 
+
 /**
  * 从命令行中（即 argv[1] ~ argv[2] 中）获取文件路径，
  * 将路径 argv[1] 所指向的文件的内容拷贝到 argv[2] 的文件夹中去
@@ -35,6 +38,7 @@ class FileCopyOperator
 
     private:
         const std::string version{"1.0.0"};
+        const char osSpecificSlash = (WINDOWS_X86 ? '\\' : '/');
         static constexpr std::size_t bufferSize = 1024 * 1024;
 
         /**
@@ -64,6 +68,16 @@ class FileCopyOperator
          * @return 不带路径的文件名
         */
         std::string getFileName(const std::string & __srcFile);
+
+        /**
+         * @brief 对文件路径的斜杠进行正反切换，以适应不同的操作系统。
+         * 
+         * @param __path    文件路径
+         * @param __state   斜杠状态，使用 FOWARD 还是 BACKWARD
+         * 
+         * @return non-return
+        */
+        void forwardBackwardSwitch(std::string & __path);
     
     public:
         /**
@@ -94,7 +108,7 @@ class FileCopyOperator
             printSplitLine(65, '-');
         }
 
-        void copyFile(const std::string __srcFile, const std::string __tarFile);
+        void copyFile(std::string __srcFile, std::string __tarFile);
 
         ~FileCopyOperator() 
         {   
@@ -104,6 +118,18 @@ class FileCopyOperator
             this->writeFstream.close();
         }
 };
+
+void FileCopyOperator::forwardBackwardSwitch(std::string & __path)
+{
+    /*
+        若在 __srcFile 中没有找到 / 或 \ 字符，
+        则代表它可能是一个纯文件，或者非法字符串，直接原路返回就好。
+    */
+    if ((__path.find('/') == __path.npos) && (__path.find('\\') == __path.npos)) { return; }
+
+    std::replace(__path.begin(), __path.end(), '/', osSpecificSlash);
+    std::replace(__path.begin(), __path.end(), '\\', osSpecificSlash);
+}
 
 std::string FileCopyOperator::getFileType(const std::string & __srcFile)
 {
@@ -121,20 +147,21 @@ std::string FileCopyOperator::getFileType(const std::string & __srcFile)
 
 std::string FileCopyOperator::getFileName(const std::string & __srcFile)
 {
-    /*若在 __srcFile 中没有找到 / 字符，则代表它可能是一个纯文件，或者非法字符串*/
-    if (__srcFile.find('/') == __srcFile.npos) { return ""; }
+    // 查找最后一个 '/' 或 '\' （由于已使用 forwardBackwardSwitch 统一过，此处可只查找 '/'
+    std::size_t pathPos = __srcFile.rfind('\\');
 
-    std::size_t pathPos = 0;
+    // 若找不到 '/'，则返回空字符串
+    if (pathPos == std::string::npos) { return ""; }
 
-    /*从 __srcFile 末尾开始查找 / 字符，并返回它的位置*/
-    if ((pathPos = __srcFile.rfind('/')) == __srcFile.npos) { return ""; }
-
-    /*分割最后一个 / 字符后出现的所有字符，并返回*/
-    return __srcFile.substr(pathPos + 1); 
+    // 分割最后一个 '/' 后面的所有字符，并返回
+    return __srcFile.substr(pathPos + 1);
 }
 
-void FileCopyOperator::copyFile(const std::string __srcFile, const std::string __tarPath)
+void FileCopyOperator::copyFile(std::string __srcFile, std::string __tarPath)
 {
+    this->forwardBackwardSwitch(__srcFile);
+    this->forwardBackwardSwitch(__tarPath);
+
     /*由于可能传入的非法字符，所以需要有异常机制*/
     try
     {
@@ -148,19 +175,13 @@ void FileCopyOperator::copyFile(const std::string __srcFile, const std::string _
 
         /*
             将要被复制的文件和要被复制到的路径组成新的文件路径，
-            如 ./data/The_Art_of_Patience.txt
+            如 ./data/The_Art_of_Patience.txt 或 .\data\The_Art_of_Patience.txt
         */
-        std::string targetFile;
-
-        /*检查 __tarPath 的最后一个字符是不是 /，如果没有就要给他添加上*/
-        if (*(__tarPath.end() - 1) == '/')
-        {
-            targetFile = __tarPath + this->getFileName(__srcFile);
-        }
-        else
-        {
-            targetFile = __tarPath + '/' + this->getFileName(__srcFile);
-        }
+       std::string targetFile;
+        if (*(__tarPath.end() - 1) == this->osSpecificSlash)
+            targetFile = (__tarPath + this->getFileName(__srcFile));
+        else 
+            targetFile = (__tarPath + this->osSpecificSlash + this->getFileName(__srcFile));
 
         loger(
                 std::cout, NOTIFY,
