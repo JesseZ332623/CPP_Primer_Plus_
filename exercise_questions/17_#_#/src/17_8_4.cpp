@@ -35,7 +35,7 @@ typedef struct __FilePath
     std::vector<std::string> inFilePath;
     std::string resultFilePath;
 
-    int callTimes;
+    int callTimes{0};
 
 } FilePath;
 
@@ -48,7 +48,11 @@ int main(int argc, char const *argv[])
     system("cls");
 
     std::fstream FIOStream;
-    FilePath filePath = {{"./data/17_8_4_in_1.txt", "./data/17_8_4_in_2.txt"}, "./data/17_8_4_result.txt", 0};
+    FilePath filePath = 
+    {
+        {"./data/17_8_4/17_8_4_in_1.txt", "./data/17_8_4/17_8_4_in_2.txt"}, 
+        "./data/17_8_4/17_8_4_result.txt"
+    };
 
     dataInput(FIOStream, filePath);
     dataInput(FIOStream, filePath);
