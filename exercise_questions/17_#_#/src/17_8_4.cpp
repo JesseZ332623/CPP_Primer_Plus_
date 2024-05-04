@@ -98,7 +98,7 @@ void dataInput(std::fstream & __fs, FilePath & __path)
              NOTIFY_LOG
             (
                 "Enter some words to " + __path.inFilePath[__path.callTimes] + \
-                " (Line " + std::to_string(FLineCount) + " Press <quit> to end):\n"
+                " (Line " + std::to_string(++FLineCount) + " Press <quit> to end):\n"
             );
         }
 
@@ -130,7 +130,7 @@ void meargeAndWrite(std::fstream & __fs, FilePath & __path)
             throw std::runtime_error("Countn't open " + __path.inFilePath[__path.callTimes] + '\n'); 
         }
 
-        while (FInA.good() && FInB.good())
+        while (!FInA.eof() && !FInB.eof())
         {
             std::getline(FInA, tempStringA); 
             std::getline(FInB, tempStringB);
@@ -141,9 +141,19 @@ void meargeAndWrite(std::fstream & __fs, FilePath & __path)
             __fs << tempStringA;
         }
 
-        while (FInA.good()) { std::getline(FInA, tempStringA); __fs << tempStringA << '\n'; }
+        while (!FInA.eof()) 
+        { 
+            std::getline(FInA, tempStringA); 
+            inputStringArray.push_back(tempStringA + '\n'); 
+            __fs << tempStringA << "\n"; 
+        }
 
-        while (FInB.good()) { std::getline(FInB, tempStringB); __fs << tempStringB << '\n'; }
+        while (!FInB.eof()) 
+        { 
+            std::getline(FInB, tempStringB); 
+            inputStringArray.push_back(tempStringB + '\n'); 
+            __fs << tempStringB << "\n"; 
+        }
 
         showInputArr(inputStringArray, __path.resultFilePath);
 
@@ -165,7 +175,7 @@ void showInputArr(std::vector<std::string> & __inputStrArr, const std::string & 
     for (std::size_t index = 0; index < __inputStrArr.size(); ++index)
     {
         std::cout << index + 1 << '\t' << __inputStrArr.at(index);
-        delay(35);
+        delay(15);
     }
 
     printSplitLine(45, '-');
