@@ -2,6 +2,8 @@
 
 # CPP_Primer_Plus
 
+![cover](https://img30.360buyimg.com/n7/jfs/t1/194969/25/38307/92030/650a863bF6d65b952/921f282581f58fec.jpg)
+
 ## Date: 2024.5.7
 
 # 恭喜 Jesse，学完了此书，你以熟练掌握 C++ 基础，可以开始学习更多进阶的内容了
